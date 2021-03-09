@@ -1,0 +1,974 @@
+/* settings pages */
+#mb4wp-admin,
+.mb4wp-admin {
+  /* Grid */
+  /** Whitespace control */
+  /* Tabs */
+  /* settings pages */
+  /* BASICS */
+  /* PADDING */
+  /* GUTTER */
+  /* CURSOR */
+  /* Shown when moving in bi-directional text */
+  /* Can style cursor different in overwrite (non-insert) mode */
+  /* DEFAULT THEME */
+  /* Default styles for common addons */
+  /* STOP */
+  /* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+  /* The fake, visible scrollbars. Used to force redraw during scrolling
+   before actual scrolling happens, thus preventing shaking and
+   flickering artifacts. */
+  /* Force content-box sizing for the elements where we expect it */
+  /* Used to force a border model for a node */
+  /* See issue #2901 */
+  /* Help users use markselection to safely style text background */
+  /* Codemirror */
+  /* Add logo to page title */
+  /** Core Customizations */ }
+  #mb4wp-admin .row,
+  #mb4wp-admin .mb4wp-row,
+  .mb4wp-admin .row,
+  .mb4wp-admin .mb4wp-row {
+    margin-left: -20px;
+    margin-right: -20px;
+    float: none; }
+  #mb4wp-admin .row .col,
+  #mb4wp-admin .mb4wp-row .mb4wp-col,
+  .mb4wp-admin .row .col,
+  .mb4wp-admin .mb4wp-row .mb4wp-col {
+    padding: 0 20px;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  #mb4wp-admin .row .col-1,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-1,
+  .mb4wp-admin .row .col-1,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-1 {
+    width: 16.666%; }
+  #mb4wp-admin .row .col-2,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-2,
+  .mb4wp-admin .row .col-2,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-2 {
+    width: 33.333%; }
+  #mb4wp-admin .row .col-3,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-3,
+  .mb4wp-admin .row .col-3,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-3 {
+    width: 50%; }
+  #mb4wp-admin .row .col-4,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-4,
+  .mb4wp-admin .row .col-4,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-4 {
+    width: 66.666%; }
+  #mb4wp-admin .row .col-5,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-5,
+  .mb4wp-admin .row .col-5,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-5 {
+    width: 83.333%; }
+  #mb4wp-admin .row .col-6,
+  #mb4wp-admin .mb4wp-row .mb4wp-col-6,
+  .mb4wp-admin .row .col-6,
+  .mb4wp-admin .mb4wp-row .mb4wp-col-6 {
+    width: 100%; }
+  #mb4wp-admin .row:before,
+  #mb4wp-admin .row:after,
+  #mb4wp-admin .mb4wp-row:before,
+  #mb4wp-admin .mb4wp-row:after,
+  #mb4wp-admin .clearfix:before,
+  #mb4wp-admin .clearfix:after,
+  .mb4wp-admin .row:before,
+  .mb4wp-admin .row:after,
+  .mb4wp-admin .mb4wp-row:before,
+  .mb4wp-admin .mb4wp-row:after,
+  .mb4wp-admin .clearfix:before,
+  .mb4wp-admin .clearfix:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */ }
+  #mb4wp-admin .row:after,
+  #mb4wp-admin .mb4wp-row:after,
+  #mb4wp-admin .clearfix:after,
+  .mb4wp-admin .row:after,
+  .mb4wp-admin .mb4wp-row:after,
+  .mb4wp-admin .clearfix:after {
+    clear: both; }
+  @media (max-width: 1200px) {
+    #mb4wp-admin .row .col,
+    #mb4wp-admin .mb4wp-row .mb4wp-col,
+    .mb4wp-admin .row .col,
+    .mb4wp-admin .mb4wp-row .mb4wp-col {
+      width: 100%;
+      float: none;
+      margin: 10px 0; } }
+  #mb4wp-admin .status,
+  .mb4wp-admin .status {
+    display: inline-block;
+    margin-left: 1em;
+    padding: 3px 6px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold; }
+    #mb4wp-admin .status.positive,
+    .mb4wp-admin .status.positive {
+      background-color: limeGreen; }
+    #mb4wp-admin .status.negative,
+    .mb4wp-admin .status.negative {
+      background-color: red; }
+    #mb4wp-admin .status.neutral,
+    .mb4wp-admin .status.neutral {
+      background: gray; }
+  #mb4wp-admin .green,
+  .mb4wp-admin .green {
+    color: green; }
+  #mb4wp-admin .red,
+  .mb4wp-admin .red {
+    color: red; }
+  #mb4wp-admin .valigntop,
+  .mb4wp-admin .valigntop {
+    vertical-align: top !important; }
+  #mb4wp-admin .big-margin,
+  .mb4wp-admin .big-margin {
+    margin-top: 60px;
+    margin-bottom: 60px; }
+  #mb4wp-admin .medium-margin,
+  .mb4wp-admin .medium-margin {
+    margin-top: 40px;
+    margin-bottom: 40px; }
+  #mb4wp-admin .small-margin,
+  .mb4wp-admin .small-margin {
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  #mb4wp-admin .tiny-margin,
+  .mb4wp-admin .tiny-margin {
+    margin-top: 10px;
+    margin-bottom: 10px; }
+  #mb4wp-admin .hover-activated,
+  .mb4wp-admin .hover-activated {
+    opacity: 0.5; }
+  #mb4wp-admin .hover-activated:hover,
+  .mb4wp-admin .hover-activated:hover {
+    cursor: pointer;
+    opacity: 1; }
+  #mb4wp-admin .help-text,
+  .mb4wp-admin .help-text {
+    font-size: 14px; }
+    #mb4wp-admin .help-text p,
+    .mb4wp-admin .help-text p {
+      margin: 10px 0;
+      font-size: 14px; }
+    #mb4wp-admin .help-text ul,
+    .mb4wp-admin .help-text ul {
+      list-style: square;
+      margin-top: 15px;
+      padding-left: 40px; }
+  #mb4wp-admin .help,
+  .mb4wp-admin .help {
+    font-style: italic; }
+  #mb4wp-admin .muted,
+  .mb4wp-admin .muted {
+    color: #aaa; }
+  #mb4wp-admin .red,
+  .mb4wp-admin .red {
+    color: red; }
+  #mb4wp-admin .green,
+  .mb4wp-admin .green {
+    color: #32cd32; }
+  #mb4wp-admin .mb4wp-notice,
+  .mb4wp-admin .mb4wp-notice {
+    padding: 6px 12px;
+    color: #31708f;
+    background: #d9edf7;
+    border: 1px solid #bce8f1;
+    margin: 1em 0 !important; }
+  #mb4wp-admin .mb4wp-is-dismissible,
+  .mb4wp-admin .mb4wp-is-dismissible {
+    padding-right: 38px;
+    position: relative; }
+  #mb4wp-admin .column-ID,
+  .mb4wp-admin .column-ID {
+    width: 10%; }
+  #mb4wp-admin .block,
+  .mb4wp-admin .block {
+    display: block; }
+  #mb4wp-admin .code-sample,
+  .mb4wp-admin .code-sample {
+    font-family: Consolas, Monaco, Lucida Console, monospace;
+    font-size: 12px;
+    background: white; }
+  #mb4wp-admin .breadcrumbs,
+  .mb4wp-admin .breadcrumbs {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1em; }
+  #mb4wp-admin .mb4wp-loader,
+  .mb4wp-admin .mb4wp-loader {
+    position: relative;
+    display: inline-block;
+    text-indent: -9999999px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-left-color: #000000;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+    overflow: hidden;
+    border-radius: 50%;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px; }
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+  #mb4wp-admin .tab,
+  .mb4wp-admin .tab {
+    display: none;
+    background: inherit;
+    border: none;
+    font-weight: initial; }
+  #mb4wp-admin .tab.tab-active,
+  .mb4wp-admin .tab.tab-active {
+    display: block; }
+  #mb4wp-admin .tab h2,
+  .mb4wp-admin .tab h2 {
+    margin-top: 20px; }
+  #mb4wp-admin .CodeMirror,
+  .mb4wp-admin .CodeMirror {
+    /* Set height, width, borders, and global font properties here */
+    font-family: monospace;
+    height: 300px;
+    color: black;
+    direction: ltr; }
+  #mb4wp-admin .CodeMirror-lines,
+  .mb4wp-admin .CodeMirror-lines {
+    padding: 4px 0;
+    /* Vertical padding around content */ }
+  #mb4wp-admin .CodeMirror pre,
+  .mb4wp-admin .CodeMirror pre {
+    padding: 0 4px;
+    /* Horizontal padding of content */ }
+  #mb4wp-admin .CodeMirror-scrollbar-filler, #mb4wp-admin .CodeMirror-gutter-filler,
+  .mb4wp-admin .CodeMirror-scrollbar-filler,
+  .mb4wp-admin .CodeMirror-gutter-filler {
+    background-color: white;
+    /* The little square between H and V scrollbars */ }
+  #mb4wp-admin .CodeMirror-gutters,
+  .mb4wp-admin .CodeMirror-gutters {
+    border-right: 1px solid #ddd;
+    background-color: #f7f7f7;
+    white-space: nowrap; }
+  #mb4wp-admin .CodeMirror-linenumber,
+  .mb4wp-admin .CodeMirror-linenumber {
+    padding: 0 3px 0 5px;
+    min-width: 20px;
+    text-align: right;
+    color: #999;
+    white-space: nowrap; }
+  #mb4wp-admin .CodeMirror-guttermarker,
+  .mb4wp-admin .CodeMirror-guttermarker {
+    color: black; }
+  #mb4wp-admin .CodeMirror-guttermarker-subtle,
+  .mb4wp-admin .CodeMirror-guttermarker-subtle {
+    color: #999; }
+  #mb4wp-admin .CodeMirror-cursor,
+  .mb4wp-admin .CodeMirror-cursor {
+    border-left: 1px solid black;
+    border-right: none;
+    width: 0; }
+  #mb4wp-admin .CodeMirror div.CodeMirror-secondarycursor,
+  .mb4wp-admin .CodeMirror div.CodeMirror-secondarycursor {
+    border-left: 1px solid silver; }
+  #mb4wp-admin .cm-fat-cursor .CodeMirror-cursor,
+  .mb4wp-admin .cm-fat-cursor .CodeMirror-cursor {
+    width: auto;
+    border: 0 !important;
+    background: #7e7; }
+  #mb4wp-admin .cm-fat-cursor div.CodeMirror-cursors,
+  .mb4wp-admin .cm-fat-cursor div.CodeMirror-cursors {
+    z-index: 1; }
+  #mb4wp-admin .cm-fat-cursor-mark,
+  .mb4wp-admin .cm-fat-cursor-mark {
+    background-color: rgba(20, 255, 20, 0.5);
+    -webkit-animation: blink 1.06s steps(1) infinite;
+    -moz-animation: blink 1.06s steps(1) infinite;
+    animation: blink 1.06s steps(1) infinite; }
+  #mb4wp-admin .cm-animate-fat-cursor,
+  .mb4wp-admin .cm-animate-fat-cursor {
+    width: auto;
+    border: 0;
+    -webkit-animation: blink 1.06s steps(1) infinite;
+    -moz-animation: blink 1.06s steps(1) infinite;
+    animation: blink 1.06s steps(1) infinite;
+    background-color: #7e7; }
+
+@-moz-keyframes blink {
+  0% { }
+  50% {
+    background-color: transparent; }
+  100% { } }
+
+@-webkit-keyframes blink {
+  0% { }
+  50% {
+    background-color: transparent; }
+  100% { } }
+
+@keyframes blink {
+  0% { }
+  50% {
+    background-color: transparent; }
+  100% { } }
+  #mb4wp-admin .cm-tab,
+  .mb4wp-admin .cm-tab {
+    display: inline-block;
+    text-decoration: inherit; }
+  #mb4wp-admin .CodeMirror-rulers,
+  .mb4wp-admin .CodeMirror-rulers {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -50px;
+    bottom: -20px;
+    overflow: hidden; }
+  #mb4wp-admin .CodeMirror-ruler,
+  .mb4wp-admin .CodeMirror-ruler {
+    border-left: 1px solid #ccc;
+    top: 0;
+    bottom: 0;
+    position: absolute; }
+  #mb4wp-admin .cm-s-default .cm-header,
+  .mb4wp-admin .cm-s-default .cm-header {
+    color: blue; }
+  #mb4wp-admin .cm-s-default .cm-quote,
+  .mb4wp-admin .cm-s-default .cm-quote {
+    color: #090; }
+  #mb4wp-admin .cm-negative,
+  .mb4wp-admin .cm-negative {
+    color: #d44; }
+  #mb4wp-admin .cm-positive,
+  .mb4wp-admin .cm-positive {
+    color: #292; }
+  #mb4wp-admin .cm-header, #mb4wp-admin .cm-strong,
+  .mb4wp-admin .cm-header,
+  .mb4wp-admin .cm-strong {
+    font-weight: bold; }
+  #mb4wp-admin .cm-em,
+  .mb4wp-admin .cm-em {
+    font-style: italic; }
+  #mb4wp-admin .cm-link,
+  .mb4wp-admin .cm-link {
+    text-decoration: underline; }
+  #mb4wp-admin .cm-strikethrough,
+  .mb4wp-admin .cm-strikethrough {
+    text-decoration: line-through; }
+  #mb4wp-admin .cm-s-default .cm-keyword,
+  .mb4wp-admin .cm-s-default .cm-keyword {
+    color: #708; }
+  #mb4wp-admin .cm-s-default .cm-atom,
+  .mb4wp-admin .cm-s-default .cm-atom {
+    color: #219; }
+  #mb4wp-admin .cm-s-default .cm-number,
+  .mb4wp-admin .cm-s-default .cm-number {
+    color: #164; }
+  #mb4wp-admin .cm-s-default .cm-def,
+  .mb4wp-admin .cm-s-default .cm-def {
+    color: #00f; }
+  #mb4wp-admin .cm-s-default .cm-variable-2,
+  .mb4wp-admin .cm-s-default .cm-variable-2 {
+    color: #05a; }
+  #mb4wp-admin .cm-s-default .cm-variable-3, #mb4wp-admin .cm-s-default .cm-type,
+  .mb4wp-admin .cm-s-default .cm-variable-3,
+  .mb4wp-admin .cm-s-default .cm-type {
+    color: #085; }
+  #mb4wp-admin .cm-s-default .cm-comment,
+  .mb4wp-admin .cm-s-default .cm-comment {
+    color: #a50; }
+  #mb4wp-admin .cm-s-default .cm-string,
+  .mb4wp-admin .cm-s-default .cm-string {
+    color: #a11; }
+  #mb4wp-admin .cm-s-default .cm-string-2,
+  .mb4wp-admin .cm-s-default .cm-string-2 {
+    color: #f50; }
+  #mb4wp-admin .cm-s-default .cm-meta,
+  .mb4wp-admin .cm-s-default .cm-meta {
+    color: #555; }
+  #mb4wp-admin .cm-s-default .cm-qualifier,
+  .mb4wp-admin .cm-s-default .cm-qualifier {
+    color: #555; }
+  #mb4wp-admin .cm-s-default .cm-builtin,
+  .mb4wp-admin .cm-s-default .cm-builtin {
+    color: #30a; }
+  #mb4wp-admin .cm-s-default .cm-bracket,
+  .mb4wp-admin .cm-s-default .cm-bracket {
+    color: #997; }
+  #mb4wp-admin .cm-s-default .cm-tag,
+  .mb4wp-admin .cm-s-default .cm-tag {
+    color: #170; }
+  #mb4wp-admin .cm-s-default .cm-attribute,
+  .mb4wp-admin .cm-s-default .cm-attribute {
+    color: #00c; }
+  #mb4wp-admin .cm-s-default .cm-hr,
+  .mb4wp-admin .cm-s-default .cm-hr {
+    color: #999; }
+  #mb4wp-admin .cm-s-default .cm-link,
+  .mb4wp-admin .cm-s-default .cm-link {
+    color: #00c; }
+  #mb4wp-admin .cm-s-default .cm-error,
+  .mb4wp-admin .cm-s-default .cm-error {
+    color: #f00; }
+  #mb4wp-admin .cm-invalidchar,
+  .mb4wp-admin .cm-invalidchar {
+    color: #f00; }
+  #mb4wp-admin .CodeMirror-composing,
+  .mb4wp-admin .CodeMirror-composing {
+    border-bottom: 2px solid; }
+  #mb4wp-admin div.CodeMirror span.CodeMirror-matchingbracket,
+  .mb4wp-admin div.CodeMirror span.CodeMirror-matchingbracket {
+    color: #0b0; }
+  #mb4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket,
+  .mb4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket {
+    color: #a22; }
+  #mb4wp-admin .CodeMirror-matchingtag,
+  .mb4wp-admin .CodeMirror-matchingtag {
+    background: rgba(255, 150, 0, 0.3); }
+  #mb4wp-admin .CodeMirror-activeline-background,
+  .mb4wp-admin .CodeMirror-activeline-background {
+    background: #e8f2ff; }
+  #mb4wp-admin .CodeMirror,
+  .mb4wp-admin .CodeMirror {
+    position: relative;
+    overflow: hidden;
+    background: white; }
+  #mb4wp-admin .CodeMirror-scroll,
+  .mb4wp-admin .CodeMirror-scroll {
+    overflow: scroll !important;
+    /* Things will break if this is overridden */
+    /* 30px is the magic margin used to hide the element's real scrollbars */
+    /* See overflow: hidden in .CodeMirror */
+    margin-bottom: -30px;
+    margin-right: -30px;
+    padding-bottom: 30px;
+    height: 100%;
+    outline: none;
+    /* Prevent dragging from highlighting the element */
+    position: relative; }
+  #mb4wp-admin .CodeMirror-sizer,
+  .mb4wp-admin .CodeMirror-sizer {
+    position: relative;
+    border-right: 30px solid transparent; }
+  #mb4wp-admin .CodeMirror-vscrollbar, #mb4wp-admin .CodeMirror-hscrollbar, #mb4wp-admin .CodeMirror-scrollbar-filler, #mb4wp-admin .CodeMirror-gutter-filler,
+  .mb4wp-admin .CodeMirror-vscrollbar,
+  .mb4wp-admin .CodeMirror-hscrollbar,
+  .mb4wp-admin .CodeMirror-scrollbar-filler,
+  .mb4wp-admin .CodeMirror-gutter-filler {
+    position: absolute;
+    z-index: 6;
+    display: none; }
+  #mb4wp-admin .CodeMirror-vscrollbar,
+  .mb4wp-admin .CodeMirror-vscrollbar {
+    right: 0;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+  #mb4wp-admin .CodeMirror-hscrollbar,
+  .mb4wp-admin .CodeMirror-hscrollbar {
+    bottom: 0;
+    left: 0;
+    overflow-y: hidden;
+    overflow-x: scroll; }
+  #mb4wp-admin .CodeMirror-scrollbar-filler,
+  .mb4wp-admin .CodeMirror-scrollbar-filler {
+    right: 0;
+    bottom: 0; }
+  #mb4wp-admin .CodeMirror-gutter-filler,
+  .mb4wp-admin .CodeMirror-gutter-filler {
+    left: 0;
+    bottom: 0; }
+  #mb4wp-admin .CodeMirror-gutters,
+  .mb4wp-admin .CodeMirror-gutters {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    z-index: 3; }
+  #mb4wp-admin .CodeMirror-gutter,
+  .mb4wp-admin .CodeMirror-gutter {
+    white-space: normal;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: -30px; }
+  #mb4wp-admin .CodeMirror-gutter-wrapper,
+  .mb4wp-admin .CodeMirror-gutter-wrapper {
+    position: absolute;
+    z-index: 4;
+    background: none !important;
+    border: none !important; }
+  #mb4wp-admin .CodeMirror-gutter-background,
+  .mb4wp-admin .CodeMirror-gutter-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 4; }
+  #mb4wp-admin .CodeMirror-gutter-elt,
+  .mb4wp-admin .CodeMirror-gutter-elt {
+    position: absolute;
+    cursor: default;
+    z-index: 4; }
+  #mb4wp-admin .CodeMirror-gutter-wrapper ::selection,
+  .mb4wp-admin .CodeMirror-gutter-wrapper ::selection {
+    background-color: transparent; }
+  #mb4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection,
+  .mb4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection {
+    background-color: transparent; }
+  #mb4wp-admin .CodeMirror-lines,
+  .mb4wp-admin .CodeMirror-lines {
+    cursor: text;
+    min-height: 1px;
+    /* prevents collapsing before first draw */ }
+  #mb4wp-admin .CodeMirror pre,
+  .mb4wp-admin .CodeMirror pre {
+    /* Reset some styles that the rest of the page might have set */
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-width: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    white-space: pre;
+    word-wrap: normal;
+    line-height: inherit;
+    color: inherit;
+    z-index: 2;
+    position: relative;
+    overflow: visible;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-variant-ligatures: contextual;
+    font-variant-ligatures: contextual; }
+  #mb4wp-admin .CodeMirror-wrap pre,
+  .mb4wp-admin .CodeMirror-wrap pre {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: normal; }
+  #mb4wp-admin .CodeMirror-linebackground,
+  .mb4wp-admin .CodeMirror-linebackground {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0; }
+  #mb4wp-admin .CodeMirror-linewidget,
+  .mb4wp-admin .CodeMirror-linewidget {
+    position: relative;
+    z-index: 2;
+    padding: 0.1px;
+    /* Force widget margins to stay inside of the container */ }
+  #mb4wp-admin .CodeMirror-rtl pre,
+  .mb4wp-admin .CodeMirror-rtl pre {
+    direction: rtl; }
+  #mb4wp-admin .CodeMirror-code,
+  .mb4wp-admin .CodeMirror-code {
+    outline: none; }
+  #mb4wp-admin .CodeMirror-scroll,
+  #mb4wp-admin .CodeMirror-sizer,
+  #mb4wp-admin .CodeMirror-gutter,
+  #mb4wp-admin .CodeMirror-gutters,
+  #mb4wp-admin .CodeMirror-linenumber,
+  .mb4wp-admin .CodeMirror-scroll,
+  .mb4wp-admin .CodeMirror-sizer,
+  .mb4wp-admin .CodeMirror-gutter,
+  .mb4wp-admin .CodeMirror-gutters,
+  .mb4wp-admin .CodeMirror-linenumber {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box; }
+  #mb4wp-admin .CodeMirror-measure,
+  .mb4wp-admin .CodeMirror-measure {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden; }
+  #mb4wp-admin .CodeMirror-cursor,
+  .mb4wp-admin .CodeMirror-cursor {
+    position: absolute;
+    pointer-events: none; }
+  #mb4wp-admin .CodeMirror-measure pre,
+  .mb4wp-admin .CodeMirror-measure pre {
+    position: static; }
+  #mb4wp-admin div.CodeMirror-cursors,
+  .mb4wp-admin div.CodeMirror-cursors {
+    visibility: hidden;
+    position: relative;
+    z-index: 3; }
+  #mb4wp-admin div.CodeMirror-dragcursors,
+  .mb4wp-admin div.CodeMirror-dragcursors {
+    visibility: visible; }
+  #mb4wp-admin .CodeMirror-focused div.CodeMirror-cursors,
+  .mb4wp-admin .CodeMirror-focused div.CodeMirror-cursors {
+    visibility: visible; }
+  #mb4wp-admin .CodeMirror-selected,
+  .mb4wp-admin .CodeMirror-selected {
+    background: #d9d9d9; }
+  #mb4wp-admin .CodeMirror-focused .CodeMirror-selected,
+  .mb4wp-admin .CodeMirror-focused .CodeMirror-selected {
+    background: #d7d4f0; }
+  #mb4wp-admin .CodeMirror-crosshair,
+  .mb4wp-admin .CodeMirror-crosshair {
+    cursor: crosshair; }
+  #mb4wp-admin .CodeMirror-line::selection, #mb4wp-admin .CodeMirror-line > span::selection, #mb4wp-admin .CodeMirror-line > span > span::selection,
+  .mb4wp-admin .CodeMirror-line::selection,
+  .mb4wp-admin .CodeMirror-line > span::selection,
+  .mb4wp-admin .CodeMirror-line > span > span::selection {
+    background: #d7d4f0; }
+  #mb4wp-admin .CodeMirror-line::-moz-selection, #mb4wp-admin .CodeMirror-line > span::-moz-selection, #mb4wp-admin .CodeMirror-line > span > span::-moz-selection,
+  .mb4wp-admin .CodeMirror-line::-moz-selection,
+  .mb4wp-admin .CodeMirror-line > span::-moz-selection,
+  .mb4wp-admin .CodeMirror-line > span > span::-moz-selection {
+    background: #d7d4f0; }
+  #mb4wp-admin .cm-searching,
+  .mb4wp-admin .cm-searching {
+    background-color: #ffa;
+    background-color: rgba(255, 255, 0, 0.4); }
+  #mb4wp-admin .cm-force-border,
+  .mb4wp-admin .cm-force-border {
+    padding-right: .1px; }
+  @media print {
+    #mb4wp-admin,
+    .mb4wp-admin {
+      /* Hide the cursor when printing */ }
+      #mb4wp-admin .CodeMirror div.CodeMirror-cursors,
+      .mb4wp-admin .CodeMirror div.CodeMirror-cursors {
+        visibility: hidden; } }
+  #mb4wp-admin .cm-tab-wrap-hack:after,
+  .mb4wp-admin .cm-tab-wrap-hack:after {
+    content: ''; }
+  #mb4wp-admin span.CodeMirror-selectedtext,
+  .mb4wp-admin span.CodeMirror-selectedtext {
+    background: none; }
+  #mb4wp-admin .CodeMirror,
+  .mb4wp-admin .CodeMirror {
+    border: 1px solid #ccc;
+    min-height: 500px;
+    font-weight: normal;
+    padding: 0 4px; }
+  #mb4wp-admin .CodeMirror-empty,
+  .mb4wp-admin .CodeMirror-empty {
+    color: #999; }
+  #mb4wp-admin #mb4wp-form-preview,
+  .mb4wp-admin #mb4wp-form-preview {
+    border: 1px solid #ddd;
+    height: 500px;
+    /* codemirror + padding */
+    width: 100%;
+    border-left-width: 0;
+    border-right-width: 2px;
+    /* for scrollbar */ }
+  @media (min-width: 1186px) {
+    #mb4wp-admin .mb4wp-form-editor-wrap,
+    .mb4wp-admin .mb4wp-form-editor-wrap {
+      padding-right: 0 !important; }
+    #mb4wp-admin .mb4wp-form-preview-wrap,
+    .mb4wp-admin .mb4wp-form-preview-wrap {
+      padding-left: 0 !important; } }
+  @media (max-width: 1186px) {
+    #mb4wp-admin #mb4wp-form-preview,
+    .mb4wp-admin #mb4wp-form-preview {
+      border-left-width: 1px; } }
+  #mb4wp-admin .field-wizard,
+  .mb4wp-admin .field-wizard {
+    /* table */
+    /* checkboxes in label */ }
+    #mb4wp-admin .field-wizard h3,
+    .mb4wp-admin .field-wizard h3 {
+      margin-top: 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 12px; }
+    #mb4wp-admin .field-wizard code,
+    .mb4wp-admin .field-wizard code {
+      margin-left: 10px; }
+    #mb4wp-admin .field-wizard > div,
+    .mb4wp-admin .field-wizard > div {
+      margin: 24px 0; }
+    #mb4wp-admin .field-wizard label,
+    .mb4wp-admin .field-wizard label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 3px; }
+    #mb4wp-admin .field-wizard table,
+    .mb4wp-admin .field-wizard table {
+      table-layout: fixed;
+      border-collapse: collapse;
+      border-spacing: 0; }
+    #mb4wp-admin .field-wizard tr, #mb4wp-admin .field-wizard td,
+    .mb4wp-admin .field-wizard tr,
+    .mb4wp-admin .field-wizard td {
+      vertical-align: middle; }
+    #mb4wp-admin .field-wizard td.stretch,
+    .mb4wp-admin .field-wizard td.stretch {
+      width: 100%; }
+    #mb4wp-admin .field-wizard .cb-wrap,
+    .mb4wp-admin .field-wizard .cb-wrap {
+      font-weight: normal; }
+      #mb4wp-admin .field-wizard .cb-wrap input,
+      .mb4wp-admin .field-wizard .cb-wrap input {
+        margin-right: 6px; }
+    #mb4wp-admin .field-wizard .limit-height,
+    .mb4wp-admin .field-wizard .limit-height {
+      border: 1px solid #eee;
+      padding: 6px;
+      max-height: 200px;
+      overflow-y: scroll; }
+    #mb4wp-admin .field-wizard .dashicons,
+    .mb4wp-admin .field-wizard .dashicons {
+      vertical-align: middle; }
+    #mb4wp-admin .field-wizard .help,
+    .mb4wp-admin .field-wizard .help {
+      margin-top: 0; }
+  #mb4wp-admin .available-fields,
+  .mb4wp-admin .available-fields {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background: white; }
+    #mb4wp-admin .available-fields h4,
+    .mb4wp-admin .available-fields h4 {
+      font-size: 14px;
+      margin-top: 0; }
+    #mb4wp-admin .available-fields strong,
+    .mb4wp-admin .available-fields strong {
+      display: block;
+      margin-bottom: 6px; }
+    #mb4wp-admin .available-fields button,
+    .mb4wp-admin .available-fields button {
+      margin: 0 6px 6px 0; }
+    #mb4wp-admin .available-fields .is-required:after,
+    .mb4wp-admin .available-fields .is-required:after {
+      content: " *";
+      color: red; }
+    #mb4wp-admin .available-fields .is-required.not-in-form,
+    .mb4wp-admin .available-fields .is-required.not-in-form {
+      -webkit-box-shadow: 0 0 3px 1px red;
+      -moz-box-shadow: 0 0 3px 1px red;
+      box-shadow: 0 0 3px 1px red; }
+    #mb4wp-admin .available-fields .in-form,
+    .mb4wp-admin .available-fields .in-form {
+      opacity: 0.5; }
+  #mb4wp-admin .page-title,
+  .mb4wp-admin .page-title {
+    background: url("../img/icon-large.png") no-repeat left center;
+    padding-left: 42px;
+    line-height: 32px;
+    margin-bottom: 20px; }
+    #mb4wp-admin .page-title small,
+    .mb4wp-admin .page-title small {
+      font-size: 12px;
+      color: #777;
+      display: inline-block;
+      margin-left: 10px; }
+  #mb4wp-admin .page-title-action .dashicons,
+  #mb4wp-admin .button .dashicons,
+  #mb4wp-admin .button-secondary .dashicons,
+  .mb4wp-admin .page-title-action .dashicons,
+  .mb4wp-admin .button .dashicons,
+  .mb4wp-admin .button-secondary .dashicons {
+    vertical-align: middle;
+    line-height: 16px;
+    margin: 0 4px 0 0; }
+  #mb4wp-admin .form-table td p,
+  .mb4wp-admin .form-table td p {
+    margin-top: 1em; }
+  #mb4wp-admin .sidebar,
+  .mb4wp-admin .sidebar {
+    border-left: 1px solid #ccc; }
+  #mb4wp-admin .sidebar h3,
+  #mb4wp-admin .sidebar h4,
+  .mb4wp-admin .sidebar h3,
+  .mb4wp-admin .sidebar h4 {
+    font-size: 16px;
+    margin-bottom: 0; }
+  #mb4wp-admin .sidebar > div,
+  .mb4wp-admin .sidebar > div {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px; }
+    #mb4wp-admin .sidebar > div:last-of-type,
+    .mb4wp-admin .sidebar > div:last-of-type {
+      border-bottom: 0; }
+
+.mb4wp-log {
+  font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono';
+  font-size: 13px;
+  resize: vertical;
+  line-height: 140%;
+  height: 200px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  background: #262626;
+  color: white;
+  overflow-y: scroll; }
+
+.mb4wp-log .time {
+  color: #b58900; }
+
+.mb4wp-log .level {
+  color: #35AECD; }
+
+.mb4wp-log .debug-log-empty {
+  color: #ccc;
+  font-style: italic; }
+
+.mb4wp-log .hidden {
+  display: none; }
+
+.mb4wp-log a {
+  color: #ccc;
+  text-decoration: underline; }
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+  padding: 20px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 100%;
+  background: #fefefe;
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .overlay .close {
+    position: absolute;
+    padding: 10px;
+    right: 0;
+    top: 0;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.5; }
+  .overlay .close:hover {
+    opacity: 1; }
+
+.overlay-background {
+  z-index: 99998;
+  background: rgba(0, 0, 0, 0.67);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0; }
+
+.rtl .overlay .close {
+  right: auto;
+  left: 0; }
+
+.rtl #mb4wp-admin .page-title {
+  background-position: right center;
+  padding-left: 0;
+  padding-right: 42px; }
+
+.rtl #mb4wp-admin .CodeMirror-scroll {
+  overflow-y: hidden !important; }
+
+.rtl #mb4wp-admin .CodeMirror-vscrollbar {
+  left: 0 !important;
+  right: auto !important; }
+
+.rtl .mb4wp-is-dismissible {
+  padding-left: 38px;
+  padding-right: initial;
+  position: relative; }
+
+.tlite {
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: normal;
+  text-decoration: none;
+  text-align: left;
+  padding: 0.6em 0.75rem;
+  border-radius: 4px;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s;
+  white-space: nowrap;
+  box-shadow: 0 0.5rem 1rem -0.5rem black;
+  z-index: 1000;
+  -webkit-backface-visibility: hidden; }
+
+.tlite-table td,
+.tlite-table th {
+  position: relative; }
+
+.tlite-visible {
+  visibility: visible;
+  opacity: 0.9; }
+
+.tlite::before {
+  content: ' ';
+  display: block;
+  background: inherit;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  transform: rotate(45deg); }
+
+.tlite-n::before {
+  top: -3px;
+  left: 50%;
+  margin-left: -5px; }
+
+.tlite-nw::before {
+  top: -3px;
+  left: 10px; }
+
+.tlite-ne::before {
+  top: -3px;
+  right: 10px; }
+
+.tlite-s::before {
+  bottom: -3px;
+  left: 50%;
+  margin-left: -5px; }
+
+.tlite-se::before {
+  bottom: -3px;
+  right: 10px; }
+
+.tlite-sw::before {
+  bottom: -3px;
+  left: 10px; }
+
+.tlite-w::before {
+  left: -3px;
+  top: 50%;
+  margin-top: -5px; }
+
+.tlite-e::before {
+  right: -3px;
+  top: 50%;
+  margin-top: -5px; }
