@@ -261,17 +261,61 @@ class MB4WP_Forms_Admin {
 	 * Saves a form
 	 */
 	public function process_save_form( ) {
-
+		$failed_post = 0;
 		check_admin_referer( 'edit_form', '_mb4wp_nonce' );
 		$form_id = (int) $_POST['mb4wp_form_id'];
+	
 
 		$form_data = $_POST['mb4wp_form'];
 		$form_data['ID'] = $form_id;
 
-		$this->save_form( $form_data );
-		$this->set_default_form_id( $form_id );
+		//When we save the form check if they have just enabled the use of coupons. 
+		//print_r($this->form->settings['model_coupon']);
+		$new_coupon_status = ($form_data['settings']['coupon_enabled']);
+		$previous_form_settings = mb4wp_get_form( $form_id )->settings;
 
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailblaze-for-wp' ) );
+		$list_ids = $form_data['settings']['lists'];	
+		$previous_form_settings = mb4wp_get_form( $form_id )->settings;
+		//Condition is if the coupon form was resaved or if they add a list. 		
+
+		
+		if ((($new_coupon_status == 1)&&($previous_form_settings['coupon_enabled'] == 0))||(!empty(array_diff($list_ids, $previous_form_settings['lists'])))){
+			//They have just enabled Coupons. Let's make sure their is a field ID in their list!			
+			$mailblaze = new MB4WP_MailBlaze();
+			
+			//We need to loop through lists to create this 				
+			$blnAllCreated = true;
+
+			foreach($list_ids as $list_id){
+				$result = $mailblaze->create_list_field($list_id, 1, "WooCommerce Coupon", "WC_COUPON_CODE");				
+
+				if ($result != "Success"){	
+					$blnAllCreated = false;
+					$resultMsg = $result;
+				}
+			}
+			
+			if ($blnAllCreated == false){
+				//Need to disable the coupons and alert user to what has happened. 
+				$this->messages->flash( __( "<strong>Failed to create a new field in Mail Blaze!</strong> " . $resultMsg, 'mailblaze-for-wp' ), "failed" );
+				$failed_post = 1;
+			}else{
+				//Refresh the lists 
+				$lists = $mailblaze->fetch_lists();
+
+				if( ! empty( $lists ) ) {
+					$this->messages->flash( __( 'Success! The cached configuration for your MailBlaze lists has been renewed.', 'mailblaze-for-wp' ) );
+				}
+			}
+		}
+				
+		if ($failed_post == 0){
+			$this->save_form( $form_data );
+			$this->set_default_form_id( $form_id );
+
+			$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailblaze-for-wp' ) );
+		}
+		
 	}
 
     /**

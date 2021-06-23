@@ -480,12 +480,14 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 					className += " " + (inForm ? 'in-form' : 'not-in-form');
 				}
 
-				return m("button", {
-					className: className,
-					type: 'button',
-					onclick: m.withAttr("value", setActiveField),
-					value: field.index
-				}, field.title());
+				if (field.name() != "WC_COUPON_CODE"){
+          return m("button", {
+              className: className,
+              type: 'button',
+              onclick: m.withAttr("value", setActiveField),
+              value: field.index
+          }, field.title());
+        }
 			})]);
 		})]);
 

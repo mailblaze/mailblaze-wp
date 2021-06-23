@@ -79,7 +79,7 @@ class MB4WP_Form_Listener {
 		$mailblaze = new MB4WP_MailBlaze();
 		$email_type = $form->get_email_type();
 		$data = $form->get_data();
-		$ip_address = mb4wp_get_request_ip_address();
+		$ip_address = mb4wp_get_request_ip_address();		
 
 		/** @var MB4WP_MailBlaze_Subscriber $subscriber */
 		$subscriber = null;
@@ -102,12 +102,14 @@ class MB4WP_Form_Listener {
 		/** @var MB4WP_MailBlaze_Subscriber[] $map */
 		$map = $mapper->map();
 
+		$add_coupon_wc = true;
+
 		// loop through lists
 		foreach( $map as $list_id => $subscriber ) {
 			$subscriber->status = 'subscribed';
 			$subscriber->email_type = $email_type;
 			$subscriber->IP_ADDRESS = $ip_address;
-
+			
 			/**
 			 * Filters subscriber data before it is sent to MailBlaze. Fires for both form & integration requests.
 			 *
@@ -122,9 +124,28 @@ class MB4WP_Form_Listener {
 			 */
 			$subscriber = apply_filters( 'mb4wp_form_subscriber_data', $subscriber );
 
-			// send a subscribe request to MailBlaze for each list
+			// send a subscribe request to MailBlaze for each list			
 			$result = $mailblaze->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
+			if( $result->was_already_on_list ) {
+				$add_coupon_wc = false;
+			}
 		}
+
+
+		//We need to check here if they have coupons enabled, and if they have unique codes selected. 		
+		if (($form->settings['coupon_enabled'] == true)&&($form->settings['unique_coupon'] == true)){
+			// The coupon functionality is enabled and they have choosen a unique code. 
+			//We need to create a new coupon code. 			
+
+			if ((!empty($data['WC_COUPON_CODE']))&&( $add_coupon_wc == true )) {
+				$copy_coupon = new WC_Coupon( $form->settings['model_coupon'] );
+
+				$clone_result = $this->clone_coupon($data['WC_COUPON_CODE'], $copy_coupon);
+			}
+			
+			
+		}
+		
 
 		$log = $this->get_log();
 
@@ -309,6 +330,22 @@ class MB4WP_Form_Listener {
 				exit;
 			}
 		}
+	}
+
+	protected function clone_coupon($CouponCode, $CopyCoupon){
+		//First let's make sure that the coupon does not yet exist. 
+		$new_coupon = new WC_Coupon();
+				
+		$new_coupon_id = $new_coupon->get_id();
+		$new_coupon = $CopyCoupon;
+		$new_coupon->set_code($CouponCode);
+		$new_coupon->set_id($new_coupon_id);
+		$new_coupon->save();
+
+		if (!empty($new_coupon->errors))
+			return "Failure";
+		
+		return "Success";
 	}
 
 	/**

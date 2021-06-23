@@ -4,8 +4,14 @@ $tabs = array(
     'fields' => __('Fields', 'mailblaze-for-wp'),
     'messages' => __('Messages', 'mailblaze-for-wp'),
     'settings' => __('Settings', 'mailblaze-for-wp'),
+    'spam' => __('Spam Control', 'mailblaze-for-wp'),
     'appearance' => __('Appearance', 'mailblaze-for-wp')
 );
+
+if (is_plugin_active('woocommerce/woocommerce.php')){
+    $tabs['coupons'] = __('Coupons', 'mailblaze-for-wp');    
+}
+    
 
 /**
  * Filters the setting tabs on the "edit form" screen.
@@ -53,6 +59,7 @@ $tabs = apply_filters('mb4wp_admin_edit_form_tabs', $tabs);
                 <input type="submit" style="display: none; "/>
                 <input type="hidden" name="_mb4wp_action" value="edit_form"/>
                 <input type="hidden" name="mb4wp_form_id" value="<?php echo esc_attr($form->ID); ?>"/>
+
                 <?php wp_nonce_field('edit_form', '_mb4wp_nonce'); ?>
 
                 <div id="titlediv" class="small-margin">

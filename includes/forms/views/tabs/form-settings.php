@@ -47,7 +47,7 @@
 			</label>
 			<p class="help"><?php _e( 'Select "yes" if you want to update existing subscribers with the data that is sent.', 'mailblaze-for-wp' ); ?></p>
 		</td>
-	</tr>
+	</tr>	
 
 	<?php $config = array( 'element' => 'mb4wp_form[settings][update_existing]', 'value' => 1 ); ?>
 
@@ -84,7 +84,7 @@
 				<?php _e( 'Select "yes" to hide the form fields after a successful sign-up.', 'mailblaze-for-wp' ); ?>
 			</p>
 		</td>
-	</tr>
+	</tr>	
 	<tr valign="top">
 		<th scope="row"><label for="mb4wp_form_redirect"><?php _e( 'Redirect to URL after successful sign-ups', 'mailblaze-for-wp' ); ?></label></th>
 		<td>
@@ -97,7 +97,7 @@
 			</p>		
 				
 		</td>
-	</tr>
+	</tr>	
 
 	<?php
 	/** @ignore */

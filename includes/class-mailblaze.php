@@ -46,7 +46,7 @@ class MB4WP_MailBlaze {
 		// first, check if subscriber is already on the given list
 		try {
 
-			$existing_member_data = $this->get_api()->get_list_member( $list_id, $email_address, $args );
+			$existing_member_data = $this->get_api()->get_list_member( $list_id, $email_address, $args );			
 
 			if( $existing_member_data->status == 'success' ) {
 
@@ -132,7 +132,7 @@ class MB4WP_MailBlaze {
 				$this->error_message = $e;
 				return null;
 			}
-		}
+		}	
 
 		$data->was_already_on_list = $already_on_list;
 
@@ -280,7 +280,7 @@ class MB4WP_MailBlaze {
 
 				// hydrate data into object
 				foreach( $field_data as $data ) {
-					//Make sure not to record EMAIL twice
+					//Make sure not to record EMAIL twice or the WC_COUPON_CODE is automatically created and hidden so we don't want to
 					if( $data->tag != "EMAIL" ) { 
 						$object = MB4WP_MailBlaze_Merge_Field::from_data( $data );
 						$list->merge_fields[] = $object;
@@ -309,6 +309,8 @@ class MB4WP_MailBlaze {
 
 		// save in option
 		update_option( 'mb4wp_mailblaze_list_' . $list_id, $list, false );
+
+		
 		return $list;
 	}
 
@@ -469,6 +471,45 @@ class MB4WP_MailBlaze {
 		* @param array $list_ids
 		*/
 		return apply_filters( 'mb4wp_subscriber_count', $count, $list_ids );
+	}
+
+	/**
+	* Creates a new list field. 
+	*
+	*/
+	public function create_list_field($list_uid, $type_id, $label, $tag, array $args = array()) {
+		$default_args = [
+			'type_id' => $type_id,
+			'label' => $label,
+			'tag' => $tag,
+		];
+
+		$args = $args + $default_args;
+
+		try {
+			$create_new_field = $this->get_api()->add_list_field( $list_uid, $args );
+
+			if( $create_new_field->status == 'success' ) {
+				$args['status'] = 'confirmed';
+			}
+		} catch( MB4WP_API_Resource_Not_Found_Exception $e ) {
+			// subscriber does not exist (not an issue in this case)
+			$ErrorReturned = json_decode($e->response['body']);
+			if ($ErrorReturned->exists != true){
+				//Give the user an alert as to what happened when trying to create the field
+				return $ErrorReturned->error;
+			}else{
+				return "Success";
+			}
+			
+		} catch( MB4WP_API_Exception $e ) {			
+			// other errors.
+			$ErrorReturned = json_decode($e->response['body']);
+			return $ErrorReturned->error;
+		}
+		
+		return "Success";
+
 	}
 
 	/**

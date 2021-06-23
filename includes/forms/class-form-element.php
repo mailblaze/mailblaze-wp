@@ -82,7 +82,7 @@ class MB4WP_Form_Element {
 		$hidden_fields =  '<label style="display: none !important;">' . __( 'Leave this field empty if you\'re human:', 'mailblaze-for-wp' ) . ' ' . '<input type="text" name="_mb4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label>';
 		$hidden_fields .= '<input type="hidden" name="_mb4wp_timestamp" value="'. time() . '" />';
 		$hidden_fields .= '<input type="hidden" name="_mb4wp_form_id" value="'. esc_attr( $this->form->ID ) .'" />';
-		$hidden_fields .= '<input type="hidden" name="_mb4wp_form_element_id" value="'. esc_attr( $this->ID ) .'" />';
+		$hidden_fields .= '<input type="hidden" name="_mb4wp_form_element_id" value="'. esc_attr( $this->ID ) .'" />';		
 
 		// was "lists" parameter passed in shortcode arguments?
 		if( ! empty( $this->config['lists'] ) ) {
@@ -288,7 +288,7 @@ class MB4WP_Form_Element {
 		$opening_html .= '<form '. $this->get_form_element_attributes() .'>';
 		$before_fields = $this->get_html_before_fields();
 		$fields = '';
-		$after_fields = $this->get_html_after_fields();
+		$after_fields = $this->get_html_after_fields();				
 		$closing_html = '</form><!-- / MailBlaze for WordPress Plugin -->';
 
 		if( ! $this->is_submitted
@@ -302,10 +302,15 @@ class MB4WP_Form_Element {
 				$this->get_hidden_fields();
 		}
 
+		$fields = ($this->form->settings['recaptcha_enabled']) ? $this->get_recaptcha($fields) : $fields;	
+		
+		$coupon_field = ($this->form->settings['coupon_enabled']) ? $this->get_coupon_field($this->form->settings['unique_coupon']) : "";	
+
 		// concatenate everything
 		$output = $opening_html .
 		          $before_fields .
 		          $fields .
+				  $coupon_field .
 		          $after_fields .
 		          $closing_html;
 
@@ -360,5 +365,153 @@ class MB4WP_Form_Element {
 		$classes = apply_filters( 'mb4wp_form_css_classes', $classes, $form );
 
 		return implode( ' ', $classes );
+	}
+
+	protected function get_recaptcha($form_data){
+		wp_register_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js');
+		wp_enqueue_script( 'google-recaptcha' );
+
+		$dom = new DOMDocument();		
+
+		$dom->loadHTML($form_data);
+		$xpath = new DOMXPath($dom);
+
+		$input = $xpath->query('//input[@type="submit"]')->item(0);
+				
+		$input->setAttribute('class', (!empty($input->getAttribute('class')) ? $input->getAttribute('class') . " " : "") . 'g-recaptcha');		
+		$input->setAttribute('data-sitekey', (!empty($input->getAttribute('data-sitekey')) ? $input->getAttribute('data-sitekey') . " " : "") . $this->form->settings['site_key']);		
+		$input->setAttribute('data-callback', (!empty($input->getAttribute('data-callback')) ? $input->getAttribute('data-callback') . " " : "") . 'onSubmitMbSignup');
+		$input->setAttribute('data-action', (!empty($input->getAttribute('data-action')) ? $input->getAttribute('data-action') . " " : "") . 'submit');
+
+		//Get the ID for the button
+		if (!empty($input->getAttribute('id'))){
+			$submitID = $input->getAttribute('id');
+		}else{
+			$submitID = 'mb-subscribe-button';
+			$input->setAttribute('id', $submitID);
+		}						
+						
+		$outputHTML = $dom->saveHTML();
+
+
+			
+		//Append the scrip to the end
+		$outputHTML .= '<script>
+			function onSubmitMbSignup(token) {
+			document.getElementById("'.$this->ID.'").submit();
+			}
+	  	</script>';		
+
+		return $outputHTML;
+	}
+
+	protected function get_coupon_field($blnUniqueCode) {
+		if ($blnUniqueCode == true){
+			// We need to generate a unique code each time the form is loaded
+			$coupon_code = $this->generate_unique_coupon_code(); 
+		}else{
+			$coupon_id = $this->form->settings['model_coupon'];
+			$coupon_data = $this->get_coupon($coupon_id);
+
+			$coupon_code = ($coupon_data['code']);			
+		}
+
+		$outputHTML = '<input type="hidden" name="WC_COUPON_CODE" value="'.$coupon_code.'">';
+
+		return $outputHTML; 
+	}
+
+	protected function generate_unique_coupon_code(){
+		//Generate the code 
+		$uCode = substr(md5(uniqid(mt_rand(), true)), 0, 8);
+
+		$coupon = $this->get_coupon_by_code($uCode);		
+
+		if (empty($coupon->errors)){				
+			return $this->generate_unique_coupon_code();
+		}
+
+		return $uCode;
+	}
+
+	protected function get_coupon( $id, $fields = null ) {		
+
+		$coupon = new WC_Coupon( $id );
+
+		if ( 0 === $coupon->get_id() ) {
+			throw new WC_API_Exception( 'woocommerce_api_invalid_coupon_id', __( 'Invalid coupon ID', 'woocommerce' ), 404 );
+		}		
+
+		$coupon_data = array(
+			'id'                           => $coupon->get_id(),
+			'code'                         => $coupon->get_code(),
+			'type'                         => $coupon->get_discount_type(),
+			'created_at'                   => $this->format_datetime( $coupon->get_date_created() ? $coupon->get_date_created()->getTimestamp() : 0 ), // API gives UTC times.
+			'updated_at'                   => $this->format_datetime( $coupon->get_date_modified() ? $coupon->get_date_modified()->getTimestamp() : 0 ), // API gives UTC times.
+			'amount'                       => wc_format_decimal( $coupon->get_amount(), 2 ),
+			'individual_use'               => $coupon->get_individual_use(),
+			'product_ids'                  => array_map( 'absint', (array) $coupon->get_product_ids() ),
+			'exclude_product_ids'          => array_map( 'absint', (array) $coupon->get_excluded_product_ids() ),
+			'usage_limit'                  => $coupon->get_usage_limit() ? $coupon->get_usage_limit() : null,
+			'usage_limit_per_user'         => $coupon->get_usage_limit_per_user() ? $coupon->get_usage_limit_per_user() : null,
+			'limit_usage_to_x_items'       => (int) $coupon->get_limit_usage_to_x_items(),
+			'usage_count'                  => (int) $coupon->get_usage_count(),
+			'expiry_date'                  => $this->format_datetime( $coupon->get_date_expires() ? $coupon->get_date_expires()->getTimestamp() : 0 ), // API gives UTC times.
+			'enable_free_shipping'         => $coupon->get_free_shipping(),
+			'product_category_ids'         => array_map( 'absint', (array) $coupon->get_product_categories() ),
+			'exclude_product_category_ids' => array_map( 'absint', (array) $coupon->get_excluded_product_categories() ),
+			'exclude_sale_items'           => $coupon->get_exclude_sale_items(),
+			'minimum_amount'               => wc_format_decimal( $coupon->get_minimum_amount(), 2 ),
+			'customer_emails'              => $coupon->get_email_restrictions(),
+		);
+
+		return $coupon_data;
+	}
+
+	protected function get_coupon_by_code( $code, $fields = null ) {
+		global $wpdb;
+
+		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $wpdb->posts WHERE post_title = %s AND post_type = 'shop_coupon' AND post_status = 'publish' ORDER BY post_date DESC LIMIT 1;", $code ) );
+
+		if ( is_null( $id ) ) {
+			return new WP_Error( 'woocommerce_api_invalid_coupon_code', __( 'Invalid coupon code', 'woocommerce' ), array( 'status' => 404 ) );
+		}
+
+		return $this->get_coupon( $id, $fields );
+	}
+
+	protected function format_datetime( $timestamp, $convert_to_utc = false, $convert_to_gmt = false ) {
+		if ( $convert_to_gmt ) {
+			if ( is_numeric( $timestamp ) ) {
+				$timestamp = date( 'Y-m-d H:i:s', $timestamp );
+			}
+
+			$timestamp = get_gmt_from_date( $timestamp );
+		}
+
+		if ( $convert_to_utc ) {
+			$timezone = new DateTimeZone( wc_timezone_string() );
+		} else {
+			$timezone = new DateTimeZone( 'UTC' );
+		}
+
+		try {
+
+			if ( is_numeric( $timestamp ) ) {
+				$date = new DateTime( "@{$timestamp}" );
+			} else {
+				$date = new DateTime( $timestamp, $timezone );
+			}
+
+			// convert to UTC by adjusting the time based on the offset of the site's timezone
+			if ( $convert_to_utc ) {
+				$date->modify( -1 * $date->getOffset() . ' seconds' );
+			}
+		} catch ( Exception $e ) {
+
+			$date = new DateTime( '@0' );
+		}
+
+		return $date->format( 'Y-m-d\TH:i:s\Z' );
 	}
 }

@@ -348,8 +348,8 @@ abstract class MB4WP_Integration {
 	 *
 	 * @return boolean
 	 */
-	protected function subscribe( array $data, $related_object_id = 0 ) {
-
+	protected function subscribe( array $data, $related_object_id = 0 ) {		
+		
 		//debug
 		$debug = fopen("debug1.txt", "w");
 		fwrite($debug, "test integation \n\n");

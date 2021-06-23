@@ -434,5 +434,20 @@ class MB4WP_API {
 		return $this->client->get_last_response_headers();
 	}
 
+	/**
+	 * Create a field for a list.
+	 *
+	 * @param string $list_uid
+	 * @param array $args
+	 * @return object
+	 * @throws MB4WP_API_Exception
+	 */
+	public function add_list_field( $list_uid, array $args ) {		
+
+		$resource = sprintf( '/lists/%s/fields', $list_uid );
+
+		return $this->client->post( $resource, $args );
+	}
+
 
 }
