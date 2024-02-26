@@ -3,7 +3,7 @@ Contributors: Mail Blaze
 Tags: mailblaze, mb4wp, email marketing, newsletter, subscribe, widget, contact form 7, woocommerce, buddypress, mailblaze form
 Requires at least: 4.1
 Tested up to: 4.9.6
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.2.4

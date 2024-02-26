@@ -37,6 +37,7 @@ class MB4WP_MailBlaze {
 			'status' => 'unconfirmed',
 			'EMAIL' => $email_address,
 			'merge_fields' => array(),
+			'SEND_OPTIN' => true, // this field is needed to trigger MailBlaze to send the confirmation email
 		);
 		$already_on_list = false;
 
