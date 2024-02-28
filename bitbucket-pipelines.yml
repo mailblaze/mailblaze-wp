@@ -4,7 +4,7 @@ pipelines:
       - step:
           name: Push to GitHub Repository
           script:
-            - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/username/repository.git
+            - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/mailblaze/mb-wordpress.git
             - git push github master
           services:
             - docker
