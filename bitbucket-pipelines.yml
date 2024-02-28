@@ -1,0 +1,9 @@
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Push to GitHub Repository
+          script:
+            - git push github master
+          services:
+            - docker
