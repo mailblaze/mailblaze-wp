@@ -271,7 +271,7 @@ class MB4WP_Forms_Admin {
 
 		//When we save the form check if they have just enabled the use of coupons. 
 		//print_r($this->form->settings['model_coupon']);
-		$new_coupon_status = ($form_data['settings']['coupon_enabled']);
+		$new_coupon_status = isset($form_data['settings']['coupon_enabled']) ? $form_data['settings']['coupon_enabled'] : false;
 		$previous_form_settings = mb4wp_get_form( $form_id )->settings;
 
 		$list_ids = $form_data['settings']['lists'];	
