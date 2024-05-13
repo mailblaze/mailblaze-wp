@@ -1,3 +1,8 @@
 <p>
-	<?php printf( __( 'Use this integration by adding the "MailBlaze" field to <a href="%s">your WPForms forms</a>.', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=wpforms-overview' ) ); ?>
+	<?php 
+	// translators: Placeholder represents the URL for editing WP Forms.
+	echo sprintf(
+		esc_html__( 'Use this integration by adding the "MailBlaze" field to <p>your WPForms forms</p>.', 'mailblaze-for-wp' ), 
+		admin_url( 'admin.php?page=wpforms-overview' )
+	); ?>
 </p>

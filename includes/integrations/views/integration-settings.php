@@ -17,7 +17,9 @@
 		<div class="main-content col col-4 col-sm-6">
 
 			<h1 class="page-title">
-				<?php printf( __( '%s integration', 'mailblaze-for-wp' ), esc_html( $integration->name ) ); ?>
+				<?php 
+					// translators: Placeholder represents the integration name.
+					printf( __( '%s integration', 'mailblaze-for-wp' ), esc_html( $integration->name ) ); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2>
@@ -25,11 +27,15 @@
 
 			<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
 				<p><?php _e( 'The selected MailBlaze lists require non-default fields, which may prevent this integration from working.', 'mailblaze-for-wp' ); ?></p>
-				<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailBlaze account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailblaze-for-wp' ), 'https://kb.mb4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailblaze-for-wp&utm_campaign=integrations-page', 'https://admin.mailblaze.com/lists/' ); ?></p>
+				<p><?php 
+					// translators: Placeholder represents the URL to the KB article on how to send additional fields.
+					echo sprintf( __( 'Please ensure you <a href="%1$s">configure the plugin to send all required fields</a> or <a href="%2$s">log into your MailBlaze account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailblaze-for-wp' ), 'https://kb.mb4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailblaze-for-wp&utm_campaign=integrations-page', 'https://admin.mailblaze.com/lists/' ); ?></p>
 			</div>
 
 			<p>
-				<?php _e($integration->description, 'mailblaze-for-wp'); ?>
+				<?php 
+				// Assuming $integration->description is a property containing a text string
+				echo ($integration->description); ?>
 			</p>
 
 			<!-- Settings form -->
@@ -63,13 +69,15 @@
 						<td class="nowrap integration-toggles-wrap">
 							<label><input type="radio" name="mb4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $opts['enabled'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
 							<label><input type="radio" name="mb4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" <?php checked( $opts['enabled'], 0 ); ?> /> <?php _e( 'No' ); ?></label>
-							<p class="help"><?php printf( __( 'Enable the %s integration? This will add a sign-up checkbox to the form.', 'mailblaze-for-wp' ), $integration->name ); ?></p>
+							<p class="help"><?php 
+							// translators: Placeholder represents the integration name.
+							printf( __( 'Enable the %s integration? This will add a sign-up checkbox to the form.', 'mailblaze-for-wp' ), $integration->name ); ?></p>
 						</td>
 					</tr>
 					<?php } ?>
 
 					<?php $config = array( 'element' => 'mb4wp_integrations['. $integration->slug .'][enabled]', 'value' => '1', 'hide' => false ); ?>
-					<tbody class="integration-toggled-settings" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+					<tbody class="integration-toggled-settings" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 
 					<?php if( $integration->has_ui_element( 'implicit' ) ) { ?>
 						<tr valign="top">
@@ -110,6 +118,7 @@
 								echo '</p>';
 								echo '</td>';
 							} else {
+								// translators: Placeholder represents the URL to the MailBlaze settings page.
 								echo '<td>' . sprintf( __( 'No lists found, <a href="%s">are you connected to MailBlaze</a>?', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ) . '</td>';
 							} ?>
 						</tr>
@@ -118,11 +127,13 @@
 					<?php if( $integration->has_ui_element( 'label' ) ) {
 						$config = array( 'element' => 'mb4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
 						?>
-						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+						<tr valign="top" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 							<th scope="row"><label for="mb4wp_checkbox_label"><?php _e( 'Checkbox label text', 'mailblaze-for-wp' ); ?></label></th>
 							<td>
 								<input type="text"  class="widefat" id="mb4wp_checkbox_label" name="mb4wp_integrations[<?php echo $integration->slug; ?>][label]" value="<?php echo esc_attr( $opts['label'] ); ?>" required />
-								<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the label text.', 'mailblaze-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
+								<p class="help"><?php 
+									// translators: Placeholder represents the HTML tags that are allowed in the label text.
+									printf( __( 'HTML tags like %s are allowed in the label text.', 'mailblaze-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
 							</td>
 						</tr>
 					<?php } // end if UI label ?>
@@ -131,7 +142,7 @@
 					<?php if( $integration->has_ui_element( 'precheck' ) ) {
 					$config = array( 'element' => 'mb4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
 					?>
-						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+						<tr valign="top" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailblaze-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mb4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
@@ -147,7 +158,7 @@
 					<?php if( $integration->has_ui_element( 'css' ) ) {
 					$config = array( 'element' => 'mb4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
 					?>
-						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+						<tr valign="top" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Load some default CSS?', 'mailblaze-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mb4wp_integrations[<?php echo $integration->slug; ?>][css]" value="1" <?php checked( $opts['css'], 1 ); ?> />&rlm; <?php _e( 'Yes' ); ?></label> &nbsp;

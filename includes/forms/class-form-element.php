@@ -423,7 +423,7 @@ class MB4WP_Form_Element {
 
 	protected function generate_unique_coupon_code(){
 		//Generate the code 
-		$uCode = substr(md5(uniqid(mt_rand(), true)), 0, 8);
+		$uCode = substr(md5(uniqid(wp_rand(), true)), 0, 8);
 
 		$coupon = $this->get_coupon_by_code($uCode);		
 
@@ -483,7 +483,7 @@ class MB4WP_Form_Element {
 	protected function format_datetime( $timestamp, $convert_to_utc = false, $convert_to_gmt = false ) {
 		if ( $convert_to_gmt ) {
 			if ( is_numeric( $timestamp ) ) {
-				$timestamp = date( 'Y-m-d H:i:s', $timestamp );
+				$timestamp = gmdate( 'Y-m-d H:i:s', $timestamp );
 			}
 
 			$timestamp = get_gmt_from_date( $timestamp );

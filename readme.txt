@@ -1,6 +1,6 @@
-=== Mail Blaze for WordPress ===
+=== Mail Blaze for WP ===
 Contributors: Mail Blaze
-Tags: mailblaze, mb4wp, email marketing, newsletter, subscribe, widget, contact form 7, woocommerce, buddypress, mailblaze form
+Tags: mailblaze, email marketing, subscribe, contact form, newsletter
 Requires at least: 4.1
 Tested up to: 4.9.6
 Stable tag: 1.0.7

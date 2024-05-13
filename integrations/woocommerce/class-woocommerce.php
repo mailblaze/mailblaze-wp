@@ -121,6 +121,7 @@ class MB4WP_WooCommerce_Integration extends MB4WP_Integration {
 	 * @return string
 	 */
 	public function get_object_link( $object_id ) {
+		// translators: Placeholder represents the order number.
 		return sprintf( '<a href="%s">%s</a>', get_edit_post_link( $object_id ), sprintf( __( 'Order #%d', 'mailblaze-for-wp' ), $object_id ) );
 	}
 

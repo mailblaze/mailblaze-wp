@@ -74,7 +74,7 @@ class MB4WP_Field_Formatter {
 			$value = join( '/', $values );
 		}
 
-		$value = (string) date('m/d', strtotime( $value ) );
+		$value = (string) gmdate('m/d', strtotime( $value ) );
 
 		return $value;
 	}
@@ -84,7 +84,7 @@ class MB4WP_Field_Formatter {
 	 *
 	 * @return string
 	 */
-	public function date( $value ) {
+	public function gmdate( $value ) {
 
 		if( is_array( $value ) ) {
 
@@ -102,7 +102,7 @@ class MB4WP_Field_Formatter {
             return $value;
         }
 
-		return (string) date('Y-m-d', strtotime( $value ) );
+		return (string) gmdate('Y-m-d', strtotime( $value ) );
 	}
 
     /**

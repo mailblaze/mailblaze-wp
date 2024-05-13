@@ -37,7 +37,11 @@
 
 <?php submit_button(); ?>
 
-<p class="mb4wp-form-usage"><?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailblaze-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="'. esc_attr( sprintf( '[mb4wp_form id="%d"]', $form->ID ) ) .'" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?></p>
+<p class="mb4wp-form-usage">
+	<?php 
+		// translators: The shortcode to display the form in a post/page/widget
+		printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailblaze-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="'. esc_attr( sprintf( '[mb4wp_form id="%d"]', $form->ID ) ) .'" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?>
+</p>
 
 
 <?php // Content for Thickboxes ?>

@@ -44,9 +44,9 @@ class MB4WP_Form {
         if( ! $post instanceof WP_Post ) {
             $post = get_post( $post_id );
         }
-
         // check post object
         if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mb4wp-form' ) {
+            // translators: the post ID
             $message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailblaze-for-wp' ), $post_id );
             throw new Exception( $message );
         }

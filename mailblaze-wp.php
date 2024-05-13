@@ -6,7 +6,7 @@ Description: Mail Blaze the ability for your website visitors to sign up to your
 Version: 1.0.7
 Author: Mail Blaze
 Author URI: https://www.mailblaze.com
-Text Domain: mailblaze-for-wp
+Text Domain: mailblaze-wp
 Domain Path: /languages
 License: GPL v3
 
@@ -37,16 +37,17 @@ defined( 'ABSPATH' ) or exit;
  * @return bool
  */
 function _mb4wp_load_plugin() {
+	
 
 	global $mb4wp;
 
 	// Don't run if MailBlaze for WP Pro 2.x is activated
 	if( defined( 'MB4WP_VERSION' ) ) {
 		return false;
-	}
+	}	
 
 	// bootstrap the core plugin
-	define( 'MB4WP_VERSION', '1.0.2' );
+	define( 'MB4WP_VERSION', '1.0.7' );
 	define( 'MB4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
 	define( 'MB4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MB4WP_PLUGIN_FILE', __FILE__ );
@@ -73,6 +74,7 @@ function _mb4wp_load_plugin() {
 	$mb4wp['integrations'] = new MB4WP_Integration_Manager();
 	$mb4wp['integrations']->add_hooks();
 
+	
 	// Doing cron? Load Usage Tracking class.
 	if( isset( $_GET['doing_wp_cron'] ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 		MB4WP_Usage_Tracking::instance()->add_hooks();
@@ -121,7 +123,7 @@ add_action( 'plugins_loaded', '_mb4wp_bootstrap_integrations', 90 );
  * @since 3.0
  */
 function _mb4wp_on_plugin_activation() {
-	$time_string = sprintf("tomorrow %d:%d%d am", rand(1,6), rand(0,5), rand(0, 9) );
+	$time_string = sprintf("tomorrow %d:%d%d am", wp_rand(1,6), wp_rand(0,5), wp_rand(0, 9) );
 	wp_schedule_event( strtotime( $time_string ), 'daily', 'mb4wp_refresh_mailblaze_lists' );
 }
 

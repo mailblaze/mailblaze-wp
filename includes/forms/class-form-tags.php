@@ -87,23 +87,27 @@ class MB4WP_Form_Tags {
             'callback'    => 'mb4wp_get_request_path',
         );
 
-        $tags['date']         = array(
-            'description' => sprintf( __( 'The current date. Example: %s.', 'mailblaze-for-wp' ), '<strong>' . date( 'Y/m/d' )  . '</strong>' ),
-            'replacement' => date( 'Y/m/d' )
+        $tags['date']        = array(
+            'description' => /* translators: Placeholder represents the current date. */ 
+                             sprintf(  __( 'The current date. Example: %s.', 'mailblaze-for-wp' ), '<strong>' . gmdate( 'Y/m/d' )  . '</strong>' ),
+            'replacement' => gmdate( 'Y/m/d' )
         );
 
         $tags['time']         = array(
-            'description' => sprintf( __( 'The current time. Example: %s.', 'mailblaze-for-wp' ),  '<strong>' . date( 'H:i:s' ) . '</strong>'),
-            'replacement' => date( 'H:i:s' )
+            'description' => /* translators: Placeholder represents the current time. */
+                             sprintf( __( 'The current time. Example: %s.', 'mailblaze-for-wp' ),  '<strong>' . gmdate( 'H:i:s' ) . '</strong>'),
+            'replacement' => gmdate( 'H:i:s' )
         );
 
         $tags['language']     = array(
-            'description' => sprintf( __( 'The site\'s language. Example: %s.', 'mailblaze-for-wp' ),  '<strong>' . get_locale() . '</strong>' ),
+            'description' =>  /* translators: Placeholder represents the current language. */
+                              sprintf( __( 'The site\'s language. Example: %s.', 'mailblaze-for-wp' ),  '<strong>' . get_locale() . '</strong>' ),
             'callback'    => 'get_locale',
         );
 
         $tags['ip']           = array(
-            'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailblaze-for-wp' ), '<strong>' . mb4wp('request')->get_client_ip() . '</strong>' ),
+            'description' =>  /* translators: Placeholder represents the current IP address. */
+                              sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailblaze-for-wp' ), '<strong>' . mb4wp('request')->get_client_ip() . '</strong>' ),
             'callback'    => 'mb4wp_get_request_ip_address',
         );
 

@@ -66,6 +66,7 @@ class MB4WP_Admin_Review_Notice {
         echo '<div class="notice notice-info mb4wp-is-dismissible" id="mb4wp-review-notice">';
         echo '<p>';
         echo __( 'You\'ve been using MailBlaze for WordPress for some time now; we hope you love it!', 'mailblaze-for-wp' ) . ' <br />';
+        // translators: A link to leave a review for Mail Blaze.
         echo sprintf( __( 'If you do, please <a href="%s">leave us a 5★ rating on WordPress.org</a>. It would be of great help to us.', 'mailblaze-for-wp' ), 'https://wordpress.org/support/view/plugin-reviews/mailblaze-for-wp?rate=5#new-post' );
         echo '</p>';
         echo '<form method="POST" id="mb4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">'. __( 'Dismiss this notice.', 'mailblaze-for-wp' ) .'</span></button><input type="hidden" name="_mb4wp_action" value="dismiss_review_notice"/></form>';

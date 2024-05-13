@@ -15,7 +15,7 @@ $position_options = array(
 ?>
 <table class="form-table">
 	<?php $config = array( 'element' => 'mb4wp_integrations['. $integration->slug .'][implicit]', 'value' => '0' ); ?>
-	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+	<tr valign="top" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 		<th scope="row">
 			<?php _e( 'Position', 'mailblaze-for-wp' ); ?>
 		</th>

@@ -96,9 +96,9 @@ class MB4WP_Gravity_Forms_Integration extends MB4WP_Integration {
                 <?php esc_html_e( 'MailBlaze list', 'mailblaze-for-wp' ); ?>
             </label>
             <select id="field_mailblaze_list" onchange="SetFieldProperty('mailblaze_list', this.value)">
-                <option value="" disabled><?php _e( 'Select a MailBlaze list', 'mailblaze-for-wp' ); ?></option>
+                <option value="" disabled><?php __( 'Select a MailBlaze list', 'mailblaze-for-wp' ); ?></option>
                 <?php foreach( $lists as $list ) {
-                    echo sprintf( '<option value="%s">%s</option>', $list->id, $list->name );
+                    echo sprintf( '<option value="%s">%s</option>', esc_attr( $list->id ), esc_html( $list->name ) );
                 } ?>
             </select>
         </li>
@@ -107,8 +107,8 @@ class MB4WP_Gravity_Forms_Integration extends MB4WP_Integration {
                 <?php esc_html_e( 'Double opt-in?', 'mailblaze-for-wp' ); ?>
             </label>
             <select id="field_mailblaze_double_optin" onchange="SetFieldProperty('mailblaze_double_optin', this.value)">
-                <option value="1"><?php echo __( 'Yes' ); ?></option>
-                <option value="0"><?php echo __( 'No' ); ?></option>
+                <option value="1"><?php echo esc_html__( 'Yes', 'mailblaze-for-wp' ); ?></option>
+                <option value="0"><?php echo esc_html__( 'No', 'mailblaze-for-wp' ); ?></option>
             </select>
         </li>
         <?php

@@ -41,7 +41,7 @@ function _mb4wp_integrations_table( $integrations ) {
 				</td>
 				<td class="desc">
 					<?php
-                   _e($integration->description, 'mailblaze-for-wp');
+                   		echo $integration->description;
                     ?>
 				</td>
 			</tr>

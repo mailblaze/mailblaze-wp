@@ -330,10 +330,16 @@ class MB4WP_Admin {
 		* @param array $menu_items
 		* @since 3.0
 		*/
-		$menu_items = (array) apply_filters( 'mb4wp_admin_menu_items', $menu_items );
-
+		$menu_items = (array) apply_filters( 'mb4wp_admin_menu_items', $menu_items );		
+		
+		global $wp_filesystem;
 		// add top menu item
-		$icon = file_get_contents( MB4WP_PLUGIN_DIR . 'assets/img/icon.svg' );
+		// Initialize the filesystem
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		WP_Filesystem();
+		$icon = $wp_filesystem->get_contents( MB4WP_PLUGIN_DIR . 'assets/img/icon.svg' );
 		add_menu_page( 'Mail Blaze', 'Mail Blaze', $required_cap, 'mailblaze-for-wp', array( $this, 'show_generals_setting_page' ), 'data:image/svg+xml;base64,' . base64_encode( $icon ), '99.68491' );
 
 		// sort submenu items by 'position'
@@ -383,9 +389,11 @@ class MB4WP_Admin {
 				$message = sprintf( "<strong>%s</strong> %s %s ", __( "Error connecting to MailBlaze:", 'mailblaze-for-wp' ), $e->getCode(), $e->getMessage() );
 
 				if( is_object( $e->data ) && ! empty( $e->data->ref_no ) ) {
+					// Translators: This is a reference number for the MailBlaze support team
 					$message .= '<br />' . sprintf( __( 'Looks like your server is blocked by MailBlaze\'s firewall. Please contact MailBlaze support and include the following reference number: %s', 'mailblaze-for-wp' ), $e->data->ref_no );
 				}
 
+				// Translators: This is a link to the KB article on connectivity issues
 				$message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Here\'s some info on solving common connectivity issues.', 'mailblaze-for-wp' ) . '</a>', 'https://kb.mb4wp.com/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailblaze-for-wp&utm_campaign=settings-notice' );
 
 				$this->messages->flash( $message, 'error' );
@@ -427,10 +435,30 @@ class MB4WP_Admin {
 	* Empties the log file
 	*/
 	public function empty_debug_log() {
+		// Initialize WP_Filesystem
+		WP_Filesystem();
+	
+		global $wp_filesystem;
+	
+		// Check if WP_Filesystem initialization was successful
+		if ( ! $wp_filesystem ) {
+			// WP_Filesystem initialization failed, handle error
+			return false;
+		}
+	
 		$log = $this->get_log();
-		file_put_contents( $log->file, '' );
-
+		
+		// Clear the log file using WP_Filesystem API
+		$result = $wp_filesystem->put_contents( $log->file, '' );
+	
+		if ( $result === false ) {
+			// Error occurred while clearing the log file, handle error
+			return false;
+		}
+	
 		$this->messages->flash( __( 'Log successfully emptied.', 'mailblaze-for-wp' ) );
+	
+		return true;
 	}
 
 	/**
@@ -460,6 +488,7 @@ class MB4WP_Admin {
 		}
 
 		echo '<div class="notice notice-warning mb4wp-is-dismissible">';
+		// Translators: This is a notice to remind the user to enter their MailBlaze API key
 		echo '<p>' . sprintf( __( 'To get started with MailBlaze for WordPress, please <a href="%s">enter your MailBlaze API key on the settings page of the plugin</a>.', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ) . '</p>';
 		echo '<form method="post"><input type="hidden" name="_mb4wp_action" value="dismiss_api_key_notice" /><button type="submit" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></form>';
 		echo '</div>';

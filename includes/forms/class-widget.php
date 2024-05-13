@@ -94,7 +94,9 @@ class MB4WP_Form_Widget extends WP_Widget {
 		?>
 
         <p class="help">
-			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">MailBlaze for WordPress form settings</a>.', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp-forms' ) ); ?>
+			<?php 
+				// translators: link to the MailBlaze settings page when editing your sign-up form
+				printf( __( 'You can edit your sign-up form in the <a href="%s">MailBlaze for WordPress form settings</a>.', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp-forms' ) ); ?>
         </p>
 		<?php
 	}

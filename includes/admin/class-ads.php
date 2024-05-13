@@ -49,7 +49,7 @@ class MB4WP_Admin_Ads {
 		echo '<td colspan="2">';
 		echo '<p class="help">';
 
-		if( rand( 1, 2 ) === 1 ) {
+		if( wp_rand( 1, 2 ) === 1 ) {
 		} else {
 		}
 
@@ -74,7 +74,7 @@ class MB4WP_Admin_Ads {
 	public function admin_footer() {
 
 		if( isset( $_GET['view'] ) && $_GET['view'] === 'edit-form' ) {
-
+			
 			// WPML & Polylang specific message
 			if( defined( 'ICL_LANGUAGE_CODE' ) ) {
 				echo '<p class="help">';

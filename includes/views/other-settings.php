@@ -41,7 +41,9 @@ function _mb4wp_usage_tracking_setting( $opts ) {
 						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php _e( 'Everything', 'mailblaze-for-wp' ); ?></option>
 					</select>
 					<p class="help">
-						<?php printf( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailblaze-for-wp' ), 'https://kb.mb4wp.com/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailblaze-for-wp&utm_campaign=settings-page' ); ?>
+						<?php 
+						/* translators: URL to the KB article on how to enable log debugging */
+						printf( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailblaze-for-wp' ), 'https://kb.mb4wp.com/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailblaze-for-wp&utm_campaign=settings-page' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -100,9 +102,10 @@ add_action( 'mb4wp_admin_other_settings', '_mb4wp_usage_tracking_setting', 70 );
 
 				<?php
 				if( ! $log->test() ) {
-					echo '<p>';
-					echo __( 'Log file is not writable.', 'mailblaze-for-wp' ) . ' ';
-					echo  sprintf( __( 'Please ensure %s has the proper <a href="%s">file permissions</a>.', 'mailblaze-for-wp' ), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions' );
+					echo '<p>';					
+					echo __( 'Log file is not writable.', 'mailblaze-for-wp' ) . ' ';					
+					// translators: a link to the Codex article on file permissions
+					echo  sprintf( __( 'Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailblaze-for-wp' ), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions' );
 					echo '</p>';
 
 					// hack to hide filter input

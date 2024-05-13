@@ -297,7 +297,7 @@ class MB4WP_Forms_Admin {
 			
 			if ($blnAllCreated == false){
 				//Need to disable the coupons and alert user to what has happened. 
-				$this->messages->flash( __( "<strong>Failed to create a new field in Mail Blaze!</strong> " . $resultMsg, 'mailblaze-for-wp' ), "failed" );
+				$this->messages->flash("<strong>Failed to create a new field in Mail Blaze!</strong> " . $resultMsg, "failed" );
 				$failed_post = 1;
 			}else{
 				//Refresh the lists 

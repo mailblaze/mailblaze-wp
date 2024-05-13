@@ -9,8 +9,10 @@
 class MB4WP_Admin_Texts {
 
 	/**
-	 * @param string $plugin_file
+	 * @var string
 	 */
+	protected $plugin_file;
+	
 	public function __construct( $plugin_file ) {
 		$this->plugin_file = $plugin_file;
 	}

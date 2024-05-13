@@ -15,7 +15,9 @@
 		<th scope="row" style="width: 250px;"><?php _e( 'Lists this form subscribes to', 'mailblaze-for-wp' ); ?></th>
 		<?php // loop through lists
 		if( empty( $lists ) ) {
-			?><td colspan="2"><?php printf( __( 'No lists found, <a href="%s">are you connected to MailBlaze</a>?', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ); ?></td><?php
+			?><td colspan="2"><?php 
+				// translators: link to the MailBlaze settings page if connection does not work
+				printf( __( 'No lists found, <a href="%s">are you connected to MailBlaze</a>?', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ); ?></td><?php
 		} else { ?>
 			<td >
 
@@ -88,7 +90,9 @@
 	<tr valign="top">
 		<th scope="row"><label for="mb4wp_form_redirect"><?php _e( 'Redirect to URL after successful sign-ups', 'mailblaze-for-wp' ); ?></label></th>
 		<td>
-			<input type="text" class="widefat" name="mb4wp_form[settings][redirect]" id="mb4wp_form_redirect" placeholder="<?php printf( __( 'Example: %s', 'mailblaze-for-wp' ), esc_attr( site_url( '/thank-you/' ) ) ); ?>" value="<?php echo esc_attr( $opts['redirect'] ); ?>" />
+			<input type="text" class="widefat" name="mb4wp_form[settings][redirect]" id="mb4wp_form_redirect" placeholder="<?php 
+				// translators: an example of the thank you page
+				printf( __( 'Example: %s', 'mailblaze-for-wp' ), esc_attr( site_url( '/thank-you/' ) ) ); ?>" value="<?php echo esc_attr( $opts['redirect'] ); ?>" />
 			<p class="help">
 				<?php _e( 'Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete (absolute) URLs, including <code>http://</code>.', 'mailblaze-for-wp' ); ?>
 			</p>

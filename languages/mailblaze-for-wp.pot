@@ -850,6 +850,7 @@ msgid "This allows you to personalise your form or response messages."
 msgstr ""
 
 #: includes/forms/views/tabs/form-appearance.php:5
+# translators: Placeholder represents the name of the theme.
 msgid "Inherit from %s theme"
 msgstr ""
 

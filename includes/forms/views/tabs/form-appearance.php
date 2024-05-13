@@ -1,16 +1,17 @@
 <?php
-
 $theme = wp_get_theme();
+
 $css_options = array(
-	'0' => sprintf( __( 'Inherit from %s theme', 'mailblaze-for-wp' ), $theme->Name ),
-	'basic' => __( 'Basic', 'mailblaze-for-wp' ),
-	__( 'Form Themes', 'mailblaze-for-wp' ) => array(
-		'theme-light' => __( 'Light Theme', 'mailblaze-for-wp' ),
-		'theme-dark' => __( 'Dark Theme', 'mailblaze-for-wp' ),
-		'theme-red' => __( 'Red Theme', 'mailblaze-for-wp' ),
-		'theme-green' => __( 'Green Theme', 'mailblaze-for-wp' ),
-		'theme-blue' => __( 'Blue Theme', 'mailblaze-for-wp' ),
-	)
+	'0'                                     => /* translators:	The theme name */
+											   sprintf( esc_html__( 'Inherit from %s theme', 'mailblaze-for-wp' ), $theme->Name ),
+	'basic'                                 => esc_html__( 'Basic', 'mailblaze-for-wp' ),
+	esc_html__( 'Form Themes', 'mailblaze-for-wp' ) => array(
+		'theme-light' => esc_html__( 'Light Theme', 'mailblaze-for-wp' ),
+		'theme-dark'  => esc_html__( 'Dark Theme', 'mailblaze-for-wp' ),
+		'theme-red'   => esc_html__( 'Red Theme', 'mailblaze-for-wp' ),
+		'theme-green' => esc_html__( 'Green Theme', 'mailblaze-for-wp' ),
+		'theme-blue'  => esc_html__( 'Blue Theme', 'mailblaze-for-wp' ),
+	),
 );
 
 /**

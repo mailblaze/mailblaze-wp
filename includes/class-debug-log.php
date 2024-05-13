@@ -75,56 +75,37 @@ class MB4WP_Debug_Log{
 	 * @return boolean
 	 */
 	public function log( $level, $message ) {
-
+		// Convert the log level to an integer
 		$level = self::to_level( $level );
-
-		// only log if message level is higher than log level
+	
+		// Only log if message level is higher than log level
 		if( $level < $this->level ) {
 			return false;
 		}
-
-		// obfuscate email addresses in log message since log might be public.
-        $message = mb4wp_obfuscate_email_addresses( (string) $message );
-
-		// generate line
+	
+		// Obfuscate email addresses in log message since log might be public
+		$message = mb4wp_obfuscate_email_addresses( (string) $message );
+	
+		// Generate line
 		$level_name = self::get_level_name( $level );
-		$datetime = date( 'Y-m-d H:i:s', ( time() - date('Z') ) + ( get_option( 'gmt_offset', 0 ) * 3600 ) );
+		$datetime = gmdate( 'Y-m-d H:i:s', ( time() - gmdate('Z') ) + ( get_option( 'gmt_offset', 0 ) * 3600 ) );
 		$message = sprintf( '[%s] %s: %s', $datetime, $level_name, $message ) . PHP_EOL;
-
-		// did we open stream yet?
-		if( ! is_resource( $this->stream ) ) {
-
-			// open stream
-			$this->stream = @fopen( $this->file, 'c+' );
-
-			// if this failed, bail..
-			if ( ! is_resource( $this->stream ) ) {
-				return false;
-			}
-
-            // make sure first line of log file is a PHP tag + exit statement (to prevent direct file access)
-            $line = fgets( $this->stream );
-            $php_exit_string = '<?php exit; ?>';
-            if( strpos( $line, $php_exit_string ) !== 0 ) {
-                rewind( $this->stream );
-                fwrite( $this->stream, $php_exit_string . PHP_EOL . $line );
-            }
-
-            // place pointer at end of file
-            fseek( $this->stream, 0, SEEK_END );
+	
+		// Make sure the filesystem API is available
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
-
-		// lock file while we write, ignore errors (not much we can do)
-		flock( $this->stream, LOCK_EX );
-
-		// write the message to the file
-		fwrite( $this->stream, $message );
-
-		// unlock file again, but don't close it for remainder of this request
-		flock( $this->stream, LOCK_UN );
-
-		return true;
+	
+		// Initialize the WordPress filesystem
+		WP_Filesystem();
+	
+		// Write the message to the file using the WordPress filesystem API
+		global $wp_filesystem;
+		$result = $wp_filesystem->put_contents( $this->file, $message, FILE_APPEND );
+	
+		return $result;
 	}
+	
 
 	/**
 	 * @param string $message
@@ -200,13 +181,17 @@ class MB4WP_Debug_Log{
 	 * @return bool
 	 */
 	public function test() {
-		$handle = @fopen( $this->file, 'a' );
-		$writable = false;
-
-		if( is_resource( $handle ) ) {
-			$writable = true;
-			fclose( $handle );
+		// Make sure the filesystem API is available
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
+
+		// Initialize the WordPress filesystem
+		WP_Filesystem();
+		global $wp_filesystem;
+
+		// Check if the file is writable using the WordPress filesystem API
+		$writable = $wp_filesystem->is_writable( $this->file );
 
 		return $writable;
 	}

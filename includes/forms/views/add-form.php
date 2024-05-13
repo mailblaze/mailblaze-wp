@@ -51,7 +51,9 @@
 						</ul>
 						<?php } else { ?>
 						<p class="mb4wp-notice">
-							<?php printf( __( 'No lists found. Did you <a href="%s">connect with MailBlaze</a>?', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ); ?>
+							<?php 
+								// translators: link to the MailBlaze settings page
+								printf( __( 'No lists found. Did you <a href="%s">connect with MailBlaze</a>?', 'mailblaze-for-wp' ), admin_url( 'admin.php?page=mailblaze-for-wp' ) ); ?>
 						</p>
 						<?php } ?>
 

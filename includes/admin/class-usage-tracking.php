@@ -99,7 +99,7 @@ class MB4WP_Usage_Tracking {
 
 		// send non-blocking request and be done with it
 		wp_remote_post( $this->tracking_url, array(
-				'body' => json_encode( $data ),
+				'body' => wp_json_encode( $data ),
 				'headers' => array(
 					'Content-Type' => 'application/json',
 					'Accept' => 'application/json'

@@ -131,8 +131,16 @@ abstract class MB4WP_Integration {
 	 * @hooked `wp_head`
 	 */
 	public function print_css_reset() {
+		global $wp_filesystem;
+		// add top menu item
+		// Initialize the filesystem
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		WP_Filesystem();
+
 		$suffix = defined( 'SCRIPT_DEBUG' ) ? '' : '.min';
-		$css = file_get_contents( MB4WP_PLUGIN_DIR . 'assets/css/checkbox-reset' . $suffix . '.css' );
+		$css = $wp_filesystem->get_contents( MB4WP_PLUGIN_DIR . 'assets/css/checkbox-reset' . $suffix . '.css' );
 
 		// replace selector by integration specific selector so the css affects just this checkbox
 		$css = str_ireplace( '__INTEGRATION_SLUG__', $this->slug, $css );
@@ -350,11 +358,18 @@ abstract class MB4WP_Integration {
 	 */
 	protected function subscribe( array $data, $related_object_id = 0 ) {		
 		
-		//debug
-		$debug = fopen("debug1.txt", "w");
-		fwrite($debug, "test integation \n\n");
-		fwrite($debug, print_r($data, true));
-		fclose($debug);
+		// Initialize WP_Filesystem
+		$debug_initialized = WP_Filesystem();
+
+		if ( $debug_initialized ) {
+			// Initialize debug file path and contents
+			$debug_file = WP_CONTENT_DIR . '/debug1.txt';
+			$debug_contents = "test integation \n\n" . print_r( $data, true ) . "\n\n";
+	
+			// Write debug contents to file
+			global $wp_filesystem;
+			$wp_filesystem->put_contents( $debug_file, $debug_contents, FILE_APPEND );
+		}
 
 		$integration = $this;
 		$slug = $this->slug;
@@ -473,6 +488,7 @@ abstract class MB4WP_Integration {
 
 		return $result;
 	}
+
 
 	/**
 	 * Are the required dependencies for this integration installed?

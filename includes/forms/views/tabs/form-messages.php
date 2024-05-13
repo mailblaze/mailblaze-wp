@@ -70,7 +70,7 @@
 	</tr>
 
 	<?php $config = array( 'element' => 'mb4wp_form[settings][update_existing]', 'value' => 1 ); ?>
-	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+	<tr valign="top" data-showif="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 		<th scope="row"><label for="mb4wp_form_updated"><?php _e( 'Updated', 'mailblaze-for-wp' ); ?></label></th>
 		<td>
 			<input type="text" class="widefat" id="mb4wp_form_updated" name="mb4wp_form[messages][updated]" value="<?php echo esc_attr( $form->messages['updated'] ); ?>" />
@@ -86,7 +86,9 @@
 	<tr valign="top">
 		<th></th>
 		<td>
-			<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the message fields.', 'mailblaze-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
+			<p class="help"><?php 
+				// translators: Showing the allowed HTML tags
+				printf( __( 'HTML tags like %s are allowed in the message fields.', 'mailblaze-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
 		</td>
 	</tr>
 

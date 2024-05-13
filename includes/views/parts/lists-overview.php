@@ -16,6 +16,7 @@
 	<?php if( empty( $lists ) ) { ?>
 		<p><?php _e( 'No lists were found in your Mail Blaze account', 'mailblaze-for-wp' ); ?>.</p>
 	<?php } else {
+		// translators: Placeholder represents the number of lists found in the Mail Blaze account.
 		printf( '<p>' . __( 'A total of %d lists were found in your Mail Blaze account.', 'mailblaze-for-wp' ) . ' Please note that you can specify single or double opt-in per list in the list settings in your Mail Blaze account. Double opt-in is the default and is recommended.</p>', count( $lists ) );
 
 		echo '<table class="widefat striped">';
@@ -59,7 +60,9 @@
 						</tr>
 					</thead>
 					<?php foreach ( $list->merge_fields as $merge_field ) { ?>
-						<tr title="<?php printf( __( '%s (%s) with field type %s.', 'mailblaze-for-wp' ), esc_html( $merge_field->name ), esc_html( $merge_field->tag ), esc_html( $merge_field->field_type ) ); ?>">
+						<tr title="<?php 
+							// translators: Placeholder represents the merge field name, tag, and field type.
+							printf(__( '%1$s (%2$s) with field type %3$s.', 'mailblaze-for-wp' ), esc_html( $merge_field->name ), esc_html( $merge_field->tag ), esc_html( $merge_field->field_type ) ); ?>">
 							<td><?php echo esc_html( $merge_field->name );
 								if ( $merge_field->required ) {
 									echo '<span style="color:red;">*</span>';

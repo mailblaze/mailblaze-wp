@@ -23,7 +23,7 @@ class MB4WP_Queue_Job {
 	 * @param $data
 	 */
 	public function __construct( $data ) {
-		$this->id = (string) microtime( true ) . rand( 1, 10000 );
+		$this->id = (string) microtime( true ) . wp_rand( 1, 10000 );
 		$this->data = $data;
 	}
 }

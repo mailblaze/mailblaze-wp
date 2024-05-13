@@ -187,15 +187,16 @@ class MB4WP_WPForms_Field extends WPForms_Field
             $default = isset($value['default']) ? $value['default'] : '';
             $selected = checked('1', $default, false);
 
-            printf('<li><input type="checkbox" %s disabled>%s</li>', $selected, $value['label']);
+            printf('<li><input type="checkbox" %s disabled>%s</li>', esc_attr($selected), esc_html($value['label']));
         }
 
         echo '</ul>';
 
         // Dynamic population is enabled and contains more than 20 items
-        if (isset($total) && $total > 20) {
+        if (isset($total) && $total > 20) {            
             echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
-            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
+            // translators: this shows the total number of choices displayed
+            printf(esc_html__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
             echo '</div>';
         }
 
@@ -222,27 +223,27 @@ class MB4WP_WPForms_Field extends WPForms_Field
 
 
         // List
-        printf('<ul id="%s" class="%s">', $field_id, $field_class);
+        printf('<ul id="%s" class="%s">', esc_attr($field_id), esc_attr($field_class));
 
         foreach ($choices as $key => $choice) {
 
             $selected = isset($choice['default']) ? '1' : '0';
             $depth = isset($choice['depth']) ? absint($choice['depth']) : 1;
 
-            printf('<li class="choice-%d depth-%d">', $key, $depth);
+            printf('<li class="choice-%d depth-%d">', esc_attr($key), esc_attr($depth));
 
             // Checkbox elements
             printf('<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
-                $form_id,
-                $field['id'],
-                $key,
-                $field['id'],
+                esc_attr($form_id),
+                esc_attr($field['id']),
+                esc_attr($key),
+                esc_attr($field['id']),
                 esc_attr($choice['value']),
                 checked('1', $selected, false),
-                $field_required
+                esc_attr($field_required)
             );
 
-            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, wp_kses_post($choice['label']));
+            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', esc_attr($form_id), esc_attr($field['id']), esc_attr($key), wp_kses_post($choice['label']));
 
             echo '</li>';
         }

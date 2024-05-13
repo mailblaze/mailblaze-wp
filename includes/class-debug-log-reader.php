@@ -10,6 +10,8 @@ class MB4WP_Debug_Log_Reader {
 	 */
 	private $handle;
 
+	private $current_line;
+
 	/**
 	 * @var string
 	 */
@@ -38,7 +40,13 @@ class MB4WP_Debug_Log_Reader {
 	 * @return string
 	 */
 	public function all() {
-		return file_get_contents( $this->file );
+		global $wp_filesystem;		
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		WP_Filesystem();
+
+		return $wp_filesystem->get_contents( $this->file );
 	}
 
     /**
@@ -74,38 +82,50 @@ class MB4WP_Debug_Log_Reader {
 	 * @return string|null
 	 */
 	public function read() {
-
-		// open file if not yet opened
-		if( ! is_resource( $this->handle ) ) {
-
-			// doesn't exist?
-			if( ! file_exists( $this->file ) ) {
-				return null;
-			}
-
-			$this->handle = @fopen( $this->file, 'r' );
-
-            // unable to read?
-            if( ! is_resource( $this->handle ) ) {
-                return null;
-            }
-
-            // set pointer to 1000 files from EOF
-            $this->seek_line_from_end( 1000 );
+		// Make sure the filesystem API is available
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
-		// stop reading once we're at the end
-		if( feof( $this->handle ) ) {
-            fclose( $this->handle );
-            $this->handle = null;
-            return null;
-        }
+		// Initialize the WordPress filesystem
+		WP_Filesystem();
 
-		// read line, up to 8kb
-		$text = fgets( $this->handle );
+		// Check if the file exists
+		if ( ! file_exists( $this->file ) ) {
+			return null;
+		}
 
-		return $text;
+		// Read the file using the WordPress filesystem API
+		global $wp_filesystem;
+		$contents = wp_remote_retrieve_body( $wp_filesystem->get_contents($this->file ) );
+
+		// Check if the contents were retrieved successfully
+		if ( empty( $contents ) ) {
+			return null;
+		}
+
+		// Split the content into lines
+		$lines = explode( "\n", $contents );
+
+		// Reverse the array to start reading from the end
+		$lines = array_reverse( $lines );
+
+		// Start reading from the end of the file
+		$this->current_line = 0;
+
+		// Read each line until we reach a non-empty line or the beginning of the file
+		while ( isset( $lines[ $this->current_line ] ) ) {
+			$line = trim( wp_strip_all_tags( $lines[ $this->current_line ] ) );
+			$this->current_line++;
+
+			if ( ! empty( $line ) ) {
+				return $line;
+			}
+		}
+
+		return null;
 	}
+
 
 	/**
 	 * @return string
@@ -131,16 +151,35 @@ class MB4WP_Debug_Log_Reader {
 	 * @return string
 	 */
 	public function lines( $start, $number ) {
-		$handle = fopen( $start, 'r' );
-		$lines = '';
-
-		$current_line = 0;
-		while( $current_line < $number ) {
-			$lines .= fgets( $handle );
+		// Initialize WP_Filesystem
+		WP_Filesystem();
+	
+		global $wp_filesystem;
+	
+		// Check if WP_Filesystem initialization was successful
+		if ( ! $wp_filesystem ) {
+			// WP_Filesystem initialization failed, handle error
+			return false;
 		}
-
-		fclose( $handle );
-		return $lines;
+	
+		// Read the file using WP_Filesystem API
+		$contents = $wp_filesystem->get_contents( $start );
+	
+		if ( $contents === false ) {
+			// Error occurred while reading the file, handle error
+			return false;
+		}
+	
+		// Explode the contents into lines
+		$lines = explode( "\n", $contents );
+	
+		// Take the first $number lines
+		$lines = array_slice( $lines, 0, $number );
+	
+		// Implode the lines back into a string
+		$result = implode( "\n", $lines );
+	
+		return $result;
 	}
 
 }

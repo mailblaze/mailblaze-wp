@@ -73,7 +73,9 @@ $tabs = apply_filters('mb4wp_admin_edit_form_tabs', $tabs);
                                style="line-height: initial;">
                     </div>
                     <div>
-                        <?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailblaze-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="'. esc_attr( sprintf( '[mb4wp_form id="%d"]', $form->ID ) ) .'" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?>
+                        <?php 
+                            // translators: The shortcode to display the form in a post/page/widget
+                            printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailblaze-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="'. esc_attr( sprintf( '[mb4wp_form id="%d"]', $form->ID ) ) .'" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?>
                     </div>
                 </div>
 

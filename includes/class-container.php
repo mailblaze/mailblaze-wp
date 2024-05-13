@@ -68,8 +68,9 @@ class MB4WP_Container implements ArrayAccess {
 	 * <p>
 	 * The return value will be casted to boolean if non-boolean was returned.
 	 */
-	public function offsetExists( $offset ) {
-		return $this->has( $offset );
+	#[\ReturnTypeWillChange]
+	public function offsetExists($offset): bool {
+		return $this->has($offset);
 	}
 
 	/**
@@ -83,8 +84,9 @@ class MB4WP_Container implements ArrayAccess {
 	 *
 	 * @return mixed Can return all value types.
 	 */
-	public function offsetGet( $offset ) {
-		return $this->get( $offset );
+	#[\ReturnTypeWillChange]
+	public function offsetGet($offset) {
+		return $this->get($offset);
 	}
 
 	/**
@@ -101,8 +103,9 @@ class MB4WP_Container implements ArrayAccess {
 	 *
 	 * @return void
 	 */
-	public function offsetSet( $offset, $value ) {
-		$this->services[ $offset ] = $value;
+	#[\ReturnTypeWillChange]
+	public function offsetSet($offset, $value): void {
+		$this->services[$offset] = $value;
 	}
 
 	/**
@@ -116,6 +119,8 @@ class MB4WP_Container implements ArrayAccess {
 	 *
 	 * @return void
 	 */
-	public function offsetUnset( $offset ) {
-		unset( $this->services[ $offset ] );
-}}
+	#[\ReturnTypeWillChange]
+	public function offsetUnset($offset): void {
+		unset($this->services[$offset]);
+	}
+}
