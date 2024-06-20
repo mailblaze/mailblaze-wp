@@ -92,7 +92,7 @@ class MB4WP_Gravity_Forms_Field extends GF_Field {
             $checked = '';
         }
 
-        $logic_event = $this->get_conditional_logic_event( 'click' );
+        $logic_event = version_compare( GFForms::$version, '2.4', '<' ) ? $this->get_conditional_logic_event( 'click' ) : '';
 
         $tabindex     = $this->get_tabindex();
         $choice_value = $choice['value'];
