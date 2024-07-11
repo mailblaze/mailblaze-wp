@@ -357,7 +357,13 @@ abstract class MB4WP_Integration {
 	 * @return boolean
 	 */
 	protected function subscribe( array $data, $related_object_id = 0 ) {		
-		
+		// Ensure the WordPress Filesystem API is loaded
+		if (!function_exists('WP_Filesystem')) {
+			require_once(ABSPATH . 'wp-admin/includes/file.php');
+		}
+
+		global $wp_filesystem;
+
 		// Initialize WP_Filesystem
 		$debug_initialized = WP_Filesystem();
 
@@ -367,7 +373,6 @@ abstract class MB4WP_Integration {
 			$debug_contents = "test integation \n\n" . print_r( $data, true ) . "\n\n";
 	
 			// Write debug contents to file
-			global $wp_filesystem;
 			$wp_filesystem->put_contents( $debug_file, $debug_contents, FILE_APPEND );
 		}
 
