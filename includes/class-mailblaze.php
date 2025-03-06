@@ -255,6 +255,13 @@ class MB4WP_MailBlaze {
 		$lists = array();
 		foreach( $list_ids as $list_id ) {
 			$list = $this->get_list( $list_id, $force );
+			if ($list->merge_fields) {
+				foreach ($list->merge_fields as $field) {
+					if ($field->field_type == 'checkbox') {
+						$field->acceptsMultipleValues = true;
+					}
+				}
+			}
 			$lists["{$list_id}"] = $list;
 		}
 

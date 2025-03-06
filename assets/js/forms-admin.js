@@ -598,6 +598,11 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         var category = i18n.listFields;
         var fieldType = getFieldType(mergeField.field_type);
 
+        var acceptsMultipleValues = false;
+        if (mergeField.acceptsMultipleValues) {
+          acceptsMultipleValues = true;
+        }
+
         // name, type, title, value, required, label, placeholder, choices, wrap
         var data = {
             name: mergeField.tag,
@@ -606,7 +611,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
             forceRequired: mergeField.required,
             type: fieldType,
             choices: mergeField.choices,
-            acceptsMultipleValues: false // merge fields never accept multiple values.
+            acceptsMultipleValues: acceptsMultipleValues
         };
 
         if (data.type !== 'address') {

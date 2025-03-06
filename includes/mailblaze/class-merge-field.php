@@ -90,11 +90,10 @@ class MB4WP_MailBlaze_Merge_Field {
 
 		$instance = new self( $data->label, $data->type->identifier, $data->tag, $required);
 
-		/*
-		if( ! empty( $data->options->choices ) ) {
-			$instance->choices = $data->options->choices;
+
+		if( ! empty( $data->options ) ) {
+			$instance->choices = (array) $data->options;
 		}
-		*/
 
 		return $instance;
 	}

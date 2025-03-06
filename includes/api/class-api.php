@@ -217,9 +217,9 @@ class MB4WP_API {
 
 		// convert merge fields from object into args array
 		if( isset( $args['merge_fields'] ) ) {
-			$args['merge_fields'] = (object) $args['merge_fields'];
 			foreach ($args['merge_fields'] as $key => $value) {
-				$args[$key] = $value;
+				// Convert arrays to JSON strings
+				$args[$key] = is_array($value) ? json_encode($value) : $value;
 			}
 			unset ($args['merge_fields']);
 		}
