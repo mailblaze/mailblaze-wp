@@ -217,6 +217,7 @@ class MB4WP_MailBlaze {
 
 		delete_option( 'mb4wp_mailblaze_list_ids' );
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'mb4wp_mailblaze_list_%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'mb4wp-form'" );
 		delete_transient( 'mb4wp_list_counts' );
 	}
 
