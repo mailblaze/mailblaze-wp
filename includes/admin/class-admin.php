@@ -339,7 +339,7 @@ class MB4WP_Admin {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 		WP_Filesystem();
-		$icon = $wp_filesystem->get_contents( MB4WP_PLUGIN_DIR . 'assets/img/icon.svg' );
+		$icon = $wp_filesystem->get_contents( MB4WP_PLUGIN_DIR . 'assets/img/mb-wp-icon.svg' );
 		add_menu_page( 'Mail Blaze', 'Mail Blaze', $required_cap, 'mailblaze-for-wp', array( $this, 'show_generals_setting_page' ), 'data:image/svg+xml;base64,' . base64_encode( $icon ), '99.68491' );
 
 		// sort submenu items by 'position'
