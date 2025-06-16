@@ -126,7 +126,7 @@ class MB4WP_Form_Listener {
 
 			// send a subscribe request to MailBlaze for each list			
 			$result = $mailblaze->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
-			if( $result->was_already_on_list ) {
+			if( is_object($result) && isset($result->was_already_on_list) && $result->was_already_on_list ) {
 				$add_coupon_wc = false;
 			}
 		}
@@ -150,7 +150,7 @@ class MB4WP_Form_Listener {
 		$log = $this->get_log();
 
 		// do stuff on failure
-		if( ! is_object( $result ) || ( $result->status != "success" ) ) {
+		if( ! is_object( $result ) || ! isset($result->status) || ( $result->status != "success" ) ) {
 
 			$error_code = $mailblaze->get_error_code();
 			$error_message = $mailblaze->get_error_message();
@@ -178,7 +178,7 @@ class MB4WP_Form_Listener {
 		}
 
 		// Success! Did we update or newly subscribe?
-		if( $result->was_already_on_list ) {
+		if( is_object($result) && isset($result->was_already_on_list) && $result->was_already_on_list ) {
 			$form->last_event = 'updated_subscriber';
 			$form->add_notice( $form->messages['updated'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully updated %s", $form->ID, $data['EMAIL'] ) );
@@ -193,11 +193,11 @@ class MB4WP_Form_Listener {
 			 * @param array $data
 			 */
 			do_action( 'mb4wp_form_updated_subscriber', $form, $subscriber->email_address, $data );
-		} elseif ($result->data->record->status == "confirmed") {
+		} elseif (is_object($result) && isset($result->data) && isset($result->data->record) && isset($result->data->record->status) && $result->data->record->status == "confirmed") {
 			$form->last_event = 'subscribed';
 			$form->add_notice( $form->messages['subscribed'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $data['EMAIL'] ) );
-		} elseif ($result->data->record->status == "unconfirmed") {
+		} elseif (is_object($result) && isset($result->data) && isset($result->data->record) && isset($result->data->record->status) && $result->data->record->status == "unconfirmed") {
 			$form->last_event = 'pending';
 			$form->add_notice( $form->messages['pending'], 'success' );
 			$log->info( sprintf( "Form %d > Please check your email to confirm subscription for %s", $form->ID, $data['EMAIL'] ) );

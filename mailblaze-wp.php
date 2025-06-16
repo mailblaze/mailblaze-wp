@@ -3,7 +3,7 @@
 Plugin Name: Mail Blaze for WP
 Plugin URI: https://www.mailblaze.com/support/connect-with-wordpress
 Description: Mail Blaze the ability for your website visitors to sign up to your lists on the Mail Blaze email marketing platform.
-Version: 1.1.2
+Version: 1.1.3
 Author: Mail Blaze
 Author URI: https://www.mailblaze.com
 Text Domain: mailblaze-wp
