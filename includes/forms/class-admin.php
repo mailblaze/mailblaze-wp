@@ -35,9 +35,12 @@ class MB4WP_Forms_Admin {
 		add_action( 'mb4wp_save_form', array( $this, 'update_form_stylesheets' ) );
 		add_action( 'mb4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mb4wp_admin_add_form', array( $this, 'process_add_form' ) );
+		add_action( 'mb4wp_admin_delete_form', array( $this, 'process_delete_form' ) );
 		add_filter( 'mb4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
 		add_action( 'mb4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mb4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
+		add_action( 'mb4wp_admin_show_forms_page-list-forms', array( $this, 'show_list_page' ) );
+		add_action( 'mb4wp_admin_show_forms_page-delete-form', array( $this, 'show_delete_page' ) );
 		add_action( 'mb4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
 	}
 
@@ -361,23 +364,8 @@ class MB4WP_Forms_Admin {
 			return;
 		}
 
-		try{
-			// try default form first
-			$default_form = mb4wp_get_form();
-			$redirect_url = mb4wp_get_edit_form_url( $default_form->ID );
-		} catch(Exception $e) {
-			// no default form, query first available form and go there
-			$forms = mb4wp_get_forms( array( 'numberposts' => 1 ) );
-
-			if( $forms ) {
-				// if we have a post, go to the "edit form" screen
-				$form = array_pop( $forms );
-				$redirect_url = mb4wp_get_edit_form_url( $form->ID );
-			} else {
-				// we don't have a form yet, go to "add new" screen
-				$redirect_url = mb4wp_get_add_form_url();
-			}
-		}
+		// Redirect to forms list view
+		$redirect_url = admin_url( 'admin.php?page=mailblaze-for-wp-forms&view=list-forms' );
 
 		if( headers_sent() ) {
 			echo sprintf( '<meta http-equiv="refresh" content="0;url=%s" />', $redirect_url );
@@ -449,6 +437,17 @@ class MB4WP_Forms_Admin {
 	}
 
 	/**
+	 * Shows the "List Forms" page
+	 *
+	 * @internal
+	 */
+	public function show_list_page() {
+		$forms = mb4wp_get_forms();
+		$mailblaze = $this->mailblaze;
+		require dirname( __FILE__ ) . '/views/list-forms.php';
+	}
+
+	/**
 	 * Get URL for a tab on the current page.
 	 *
 	 * @since 3.0
@@ -493,5 +492,66 @@ class MB4WP_Forms_Admin {
 				),
 			)
 		);
+	}
+	
+	/**
+	 * Process form deletion
+	 */
+	public function process_delete_form($redirect = true) {
+		check_admin_referer( 'mb4wp_delete_form' );
+		
+		$form_id = isset( $_GET['form_id'] ) ? (int) $_GET['form_id'] : 0;
+		
+		if ( $form_id === 0 ) {
+			$this->messages->flash( __( "<strong>Error:</strong> No form ID was provided.", 'mailblaze-for-wp' ), 'error' );
+		} else {
+			// Check if we're deleting the default form
+			$default_form_id = (int) get_option( 'mb4wp_default_form_id', 0 );
+			if ( $form_id === $default_form_id ) {
+				// Find a new default form
+				$forms = mb4wp_get_forms( array( 'numberposts' => 1, 'exclude' => array( $form_id ) ) );
+				if ( ! empty( $forms ) ) {
+					$new_default_form = array_pop( $forms );
+					update_option( 'mb4wp_default_form_id', $new_default_form->ID );
+				} else {
+					// No forms left, clear the default form setting
+					update_option( 'mb4wp_default_form_id', 0 );
+				}
+			}
+
+			// Delete the form
+			wp_delete_post( $form_id, true );
+			$this->messages->flash( __( "<strong>Success:</strong> Form successfully deleted.", 'mailblaze-for-wp' ) );
+		}
+		
+		// Only redirect if requested (not when called from show_delete_page)
+		if ($redirect) {
+			// Use our list forms URL helper function to ensure proper redirect
+			if (function_exists('mb4wp_get_list_forms_url')) {
+				$redirect_url = mb4wp_get_list_forms_url();
+			} else {
+				$redirect_url = admin_url('admin.php?page=mailblaze-for-wp-forms&view=list-forms');
+			}
+			
+			wp_redirect($redirect_url);
+			exit;
+		}
+	}
+
+	/**
+	 * Handles the delete-form view
+	 * This ensures we always end up on the list-forms page after a delete
+	 */
+	public function show_delete_page() {
+		// Process any pending form deletion
+		$form_id = isset($_GET['form_id']) ? (int) $_GET['form_id'] : 0;
+		
+		if ($form_id > 0 && isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce'], 'mb4wp_delete_form')) {
+			// Delete the form but don't redirect (pass false)
+			$this->process_delete_form(false);
+		}
+		
+		// Always show the list forms page instead
+		$this->show_list_page();
 	}
 }

@@ -1,6 +1,14 @@
 <?php defined( 'ABSPATH' ) or exit; ?>
 <div id="mb4wp-admin" class="wrap mb4wp-settings">
 
+	<p class="breadcrumbs">
+		<span class="prefix"><?php echo __('You are here: ', 'mailblaze-for-wp'); ?></span>
+		<a href="<?php echo admin_url('admin.php?page=mailblaze-for-wp'); ?>">Mail Blaze for WordPress</a> &rsaquo;
+		<a href="<?php echo mb4wp_get_list_forms_url(); ?>"><?php _e('Forms', 'mailblaze-for-wp'); ?></a>
+		&rsaquo;
+		<span class="current-crumb"><strong><?php echo __('Add New Form', 'mailblaze-for-wp'); ?></strong></span>
+	</p>
+
 	<div class="row">
 
 		<!-- Main Content -->

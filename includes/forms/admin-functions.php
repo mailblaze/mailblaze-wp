@@ -29,6 +29,16 @@ function mb4wp_get_add_form_url() {
 }
 
 /**
+ * Get absolute URL to list all forms
+ *
+ * @return string
+ */
+function mb4wp_get_list_forms_url() {
+	$url = admin_url( 'admin.php?page=mailblaze-for-wp-forms&view=list-forms' );
+	return $url;
+}
+
+/**
  * @param        $key
  * @param        $label
  * @param        $value

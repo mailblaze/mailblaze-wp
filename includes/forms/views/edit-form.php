@@ -26,8 +26,8 @@ $tabs = apply_filters('mb4wp_admin_edit_form_tabs', $tabs);
 
     <p class="breadcrumbs">
         <span class="prefix"><?php echo __('You are here: ', 'mailblaze-for-wp'); ?></span>
-        <a href="<?php echo admin_url('admin.php?page=mailblaze-for-wp'); ?>">MailBlaze for WordPress</a> &rsaquo;
-        <a href="<?php echo admin_url('admin.php?page=mailblaze-for-wp-forms'); ?>"><?php _e('Forms', 'mailblaze-for-wp'); ?></a>
+        <a href="<?php echo admin_url('admin.php?page=mailblaze-for-wp'); ?>">Mail Blaze for WordPress</a> &rsaquo;
+        <a href="<?php echo mb4wp_get_list_forms_url(); ?>"><?php _e('Forms', 'mailblaze-for-wp'); ?></a>
         &rsaquo;
         <span class="current-crumb"><strong><?php echo __('Form', 'mailblaze-for-wp'); ?> <?php echo $form_id; ?>
                 | <?php echo esc_html($form->name); ?></strong></span>
