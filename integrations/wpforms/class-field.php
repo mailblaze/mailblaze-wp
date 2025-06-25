@@ -213,11 +213,20 @@ class MB4WP_WPForms_Field extends WPForms_Field
      */
     public function field_display($field, $field_atts, $form_data)
     {
-
         // Setup and sanitize the necessary data
         $field_required = !empty($field['required']) ? ' required' : '';
-        $field_class = implode(' ', array_map('sanitize_html_class', $field_atts['input_class']));
-        $field_id = implode(' ', array_map('sanitize_html_class', $field_atts['input_id']));
+        
+        // Add null checks for field_atts to prevent PHP warnings and errors
+        $field_class = '';
+        if (!empty($field_atts) && !empty($field_atts['input_class'])) {
+            $field_class = implode(' ', array_map('sanitize_html_class', $field_atts['input_class']));
+        }
+        
+        $field_id = '';
+        if (!empty($field_atts) && !empty($field_atts['input_id'])) {
+            $field_id = implode(' ', array_map('sanitize_html_class', $field_atts['input_id']));
+        }
+        
         $form_id = $form_data['id'];
         $choices = $field['choices'];
 
