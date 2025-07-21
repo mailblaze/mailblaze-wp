@@ -182,7 +182,10 @@ class MB4WP_API {
 	 * @throws MB4WP_API_Exception
 	 */
 	public function get_list_member( $list_id, $email_address, array $args = array() ) {
-		$resource = sprintf( '/lists/%s/subscribers/search-by-email', $list_id );
+		$resource = sprintf( '/lists/%s/subscribers/search-by-email?EMAIL=%s', 
+			$list_id, 
+			urlencode($email_address)
+		);
 
 		$data = $this->client->get( $resource, $args );
 

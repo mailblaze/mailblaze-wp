@@ -29,7 +29,8 @@ class MB4WP_MemberPress_Integration extends MB4WP_Integration {
 			add_action( 'mepr_checkout_before_submit', array( $this, 'output_checkbox' ) );
 		}
 
-		add_action( 'mepr_signup', array( $this, 'subscribe_from_memberpress' ), 5 );
+		// Hook into both WordPress and MemberPress specific actions
+		add_action( 'mepr-event-transaction-completed', array( $this, 'subscribe_from_memberpress' ), 5 );
 	}
 
 
@@ -41,22 +42,62 @@ class MB4WP_MemberPress_Integration extends MB4WP_Integration {
 	 * @return bool
 	 */
 	public function subscribe_from_memberpress( $txn ) {
+		// Handle MeprEvent or MeprTransaction
+		$user_id = null;
+		$transaction_id = null;
+		$transaction = null;
 
-		// Is this integration triggered? (checkbox checked or implicit)
-		if( ! $this->triggered() ) {
+		if (is_object($txn) && get_class($txn) === 'MeprEvent') {
+			// Try to get event data safely
+			try {
+				$rec = $txn->rec;  // Try direct access first
+			} catch (Exception $e) {
+				try {
+					// Fallback to get_object_vars
+					$vars = get_object_vars($txn);
+					$rec = isset($vars['rec']) ? $vars['rec'] : null;
+				} catch (Exception $e) {
+					$rec = null;
+				}
+			}
+			
+			if ($rec && isset($rec->evt_id) && isset($rec->evt_id_type) && $rec->evt_id_type === 'transactions') {
+				$transaction_id = $rec->evt_id;
+				try {
+					$transaction = new MeprTransaction($transaction_id);
+					$user_id = $transaction->user_id;
+				} catch (Exception $e) {
+					error_log('Error loading transaction: ' . $e->getMessage());
+				}
+			}
+		} elseif (is_object($txn) && property_exists($txn, 'user_id')) {
+			// MeprTransaction
+			$user_id = $txn->user_id;
+			$transaction = $txn;
+			$transaction_id = isset($txn->id) ? $txn->id : null;
+		} elseif (is_object($txn) && method_exists($txn, 'user')) {
+			$user_id = $txn->user()->ID;
+			$transaction = $txn;
+			$transaction_id = isset($txn->id) ? $txn->id : null;
+		}
+
+		if (!$user_id) {
 			return false;
 		}
 
-		$user = get_userdata( $txn->user_id );
+		$user = get_userdata($user_id);
+		if (!$user) {
+			return false;
+		}
 
 		$data = array(
 			'EMAIL' => $user->user_email,
 			'FNAME' => $user->first_name,
-            'LNAME' => $user->last_name
+			'LNAME' => $user->last_name
 		);
 
 		// subscribe using email and name
-		return $this->subscribe( $data, $txn->id );
+		return $this->subscribe($data, $transaction_id);
 
 	}
 
