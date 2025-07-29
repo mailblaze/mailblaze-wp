@@ -91,7 +91,8 @@ class MB4WP_API_Exception extends Exception {
             $string .= "\n" . sprintf( 'Request: %s %s', $this->request['method'], $this->request['url'] );
 
             if( ! empty( $this->request['body'] ) ) {
-                $string .= sprintf( ' - %s', $this->request['body'] );
+                $body = is_array( $this->request['body'] ) ? json_encode( $this->request['body'] ) : $this->request['body'];
+                $string .= sprintf( ' - %s', $body );
             }
         }
 
